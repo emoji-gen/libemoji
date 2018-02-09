@@ -12,7 +12,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native")
 
 set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "obj")
-include_directories("${PROJECT_BINARY_DIR}/include")
+include_directories(${CMAKE_SOURCE_DIR}/include)
+link_directories(${CMAKE_SOURCE_DIR}/externals/skia/out/Static)
 
 
 # emoji
@@ -21,6 +22,7 @@ add_library(emoji STATIC
   src/emoji.cpp
 )
 add_dependencies(emoji skia)
+target_link_libraries(emoji skia)
 
 
 # example
