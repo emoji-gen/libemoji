@@ -1,9 +1,42 @@
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.5.1)
+project(emoji)
 
+set(CMAKE_VERBOSE_MAKEFILE 1)
+
+
+# C++
+#~~~~~~~
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native")
+
+set(EXECUTABLE_OUTPUT_PATH "bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "obj")
+include_directories("${PROJECT_BINARY_DIR}/include")
+
+
+# emoji
+#~~~~~~~~
+add_library(emoji STATIC
+  src/emoji.cpp
+)
+add_dependencies(emoji skia)
+
+
+# example
+#~~~~~~~~~~
+add_executable(example
+  example/main.c
+)
+add_dependencies(example emoji)
+target_link_libraries(example emoji)
+
+
+# Skia
+#~~~~~~~~
 get_filename_component(gn_path externals/depot_tools/gn ABSOLUTE)
 get_filename_component(ninja_path externals/depot_tools/ninja ABSOLUTE)
 
-# Skia
 add_custom_target(skia
   SOURCES externals/skia/out/Static/libskia.a
 )

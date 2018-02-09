@@ -2,3 +2,7 @@ CMakeFiles
 CMakeCache.txt
 *.cmake
 Makefile
+
+bin
+obj
+*.o
