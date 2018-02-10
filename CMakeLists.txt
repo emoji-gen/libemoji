@@ -38,7 +38,20 @@ add_executable(example
   example/main.c
 )
 add_dependencies(example emoji)
-target_link_libraries(example emoji)
+
+if(APPLE)
+  target_link_libraries(example
+    emoji
+    "-framework CoreFoundation"
+    "-framework CoreGraphics"
+    "-framework CoreText"
+    "-framework CoreServices"
+  )
+else()
+  target_link_libraries(example
+    emoji
+  )
+endif()
 
 
 # Skia
