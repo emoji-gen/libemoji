@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(emoji)
 
-set(CMAKE_VERBOSE_MAKEFILE 1)
-
 
 # C++
 #~~~~~~~
@@ -18,8 +16,9 @@ link_directories(${CMAKE_SOURCE_DIR}/externals/skia/out/Static)
 
 # emoji
 #~~~~~~~~
+file(GLOB emoji_files "src/*.cpp")
 add_library(emoji STATIC
-  src/emoji.cpp
+  ${emoji_files}
 )
 add_dependencies(emoji skia)
 target_link_libraries(emoji skia)
