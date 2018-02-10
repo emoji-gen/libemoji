@@ -2,16 +2,24 @@ cmake_minimum_required(VERSION 3.5.1)
 project(emoji)
 
 
-# C++
-#~~~~~~~
+# Common
+#~~~~~~~~~
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native")
 
 set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "obj")
-include_directories(${CMAKE_SOURCE_DIR}/include)
-link_directories(${CMAKE_SOURCE_DIR}/externals/skia/out/Static)
+include_directories(
+  ${CMAKE_SOURCE_DIR}/include
+  ${CMAKE_SOURCE_DIR}/externals/skia/include/core
+  ${CMAKE_SOURCE_DIR}/externals/skia/include/config
+  ${CMAKE_SOURCE_DIR}/externals/skia/include/util
+  ${CMAKE_SOURCE_DIR}/externals/skia/include/gpu
+)
+link_directories(
+  ${CMAKE_SOURCE_DIR}/externals/skia/out/Static
+)
 
 
 # emoji
@@ -21,7 +29,7 @@ add_library(emoji STATIC
   ${emoji_files}
 )
 add_dependencies(emoji skia)
-target_link_libraries(emoji skia)
+target_link_libraries(emoji skia z)
 
 
 # example
