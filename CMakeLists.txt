@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native")
 
 set(EXECUTABLE_OUTPUT_PATH "bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "obj")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "lib")
 include_directories(
   ${CMAKE_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/src
