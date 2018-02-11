@@ -1,5 +1,10 @@
 # libemoji
 ## System requirements
+
+- CMake
+- Python 2.7
+- C++ 14
+
 ### macOS
 
 ```
