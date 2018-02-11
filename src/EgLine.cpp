@@ -25,16 +25,17 @@ EgLine::MeasureSpec EgLine::measure() {
     SkRect prevBounds = SkRect::MakeEmpty();
     SkScalar prevTextSize = SK_ScalarNaN;
 
-    for (SkScalar i = minTextSize;  i < maxTextSize; i += 0.5) {
-        paint.setTextSize(i);
-        paint.measureText(fText.c_str(), fText.length(), &bounds);
+    if (!fText.empty()) {
+        for (SkScalar i = minTextSize; i < maxTextSize; i += 0.5) {
 
-        if (bounds.height() > fLineHeight) break;
+            paint.setTextSize(i);
+            paint.measureText(fText.c_str(), fText.length(), &bounds);
 
-        prevTextSize = i;
-        prevBounds = bounds;
+            if (bounds.height() > fLineHeight) break;
 
-        if (fText.empty()) break;
+            prevTextSize = i;
+            prevBounds = bounds;
+        }
     }
 
     MeasureSpec measureSpec;

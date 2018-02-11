@@ -4,7 +4,7 @@
 
 int main() {
     EgGenerateParams params;
-    params.fText = "確実に\n痩せる";
+    params.fText = "確実に\n\n痩せる";
     params.fWidth = 1024;
     params.fHeight = 1024;
     params.fColor = 0xFFEC71A1;
