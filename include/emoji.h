@@ -18,6 +18,13 @@ typedef enum {
 } EgAlign;
 
 
+// Format
+typedef enum {
+    kPNG_Format,
+    kWEBP_Format,
+} EgFormat;
+
+
 // Generate Params
 //~~~~~~~~~~~~~~~~~~
 typedef struct {
@@ -38,17 +45,21 @@ typedef struct {
     // Font
     const char* fTypefacePath;
     const char* fTypefaceName;
+
+    // Image
+    EgFormat fFormat;
+    int fQuality;
 } EgGenerateParams;
 
 
 // Generate Result
 //~~~~~~~~~~~~~~~~~~
 typedef struct {
-    size_t size;
-    void* data;
-} EgGenerateResult;
+    size_t fSize;
+    void* fData;
+} EgGeneratorResult;
 
-void emoji_generate(const EgGenerateParams* params);
+void emoji_generate(const EgGenerateParams* params, EgGeneratorResult* result);
 /* void emoji_make(const EmojiParams* params, EmojiResult* const result); */
 /* void emoji_free(EmojiResult* const result); */
 

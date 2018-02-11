@@ -19,12 +19,13 @@ EgLine::MeasureSpec EgLine::measure() {
     paint.setTextAlign(SkPaint::kLeft_Align);
 
     SkRect bounds;
+    SkScalar minTextSize = fLineHeight * SkDoubleToScalar(0.9);
     SkScalar maxTextSize = fLineHeight * SkIntToScalar(10);
 
     SkRect prevBounds = SkRect::MakeEmpty();
     SkScalar prevTextSize = SK_ScalarNaN;
 
-    for (SkScalar i = fLineHeight; i < maxTextSize; i += 0.5) {
+    for (SkScalar i = minTextSize;  i < maxTextSize; i += 0.5) {
         paint.setTextSize(i);
         paint.measureText(fText.c_str(), fText.length(), &bounds);
 

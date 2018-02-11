@@ -31,7 +31,7 @@ void EgGenerator::setText(const char* text) {
     fTexts = std::move(texts);
 }
 
-void EgGenerator::generate() {
+sk_sp<SkData> EgGenerator::generate() {
     sk_sp<SkSurface> surface = SkSurface::MakeRasterN32Premul(fWidth, fHeight);
     SkCanvas* canvas = surface->getCanvas();
     canvas->clear(fBackgroundColor);
@@ -58,9 +58,13 @@ void EgGenerator::generate() {
         lines[i].draw(canvas,  lineHeight * i, specs[i]);
     }
 
+    // エンコード
     sk_sp<SkImage> image(surface->makeImageSnapshot());
-    sk_sp<SkData> data(image->encodeToData(SkEncodedImageFormat::kPNG, 100));
+    sk_sp<SkData> data(image->encodeToData(fFormat, fQuality));
+
     SkFILEWStream fh((std::string("./emoji.png").c_str()));
     (void)fh.write(data->data(), data->size());
+
+    return data;
 }
 
