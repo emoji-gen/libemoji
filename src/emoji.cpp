@@ -35,7 +35,7 @@ static SkEncodedImageFormat convertToSkFormat(EgFormat format) {
     }
 }
 
-void emoji_generate(const EgGenerateParams* params, EgGeneratorResult* result) {
+void emoji_generate(const EgGenerateParams* params, EgGenerateResult* result) {
     EgGenerator generator;
     generator.setText(params->fText);
     generator.setWidth(params->fWidth);
@@ -55,3 +55,8 @@ void emoji_generate(const EgGenerateParams* params, EgGeneratorResult* result) {
     result->fData = buf;
 }
 
+void emoji_free(EgGenerateResult* result) {
+    delete [] reinterpret_cast<unsigned char*>(result->fData);
+    result->fData = nullptr;
+    result->fSize = 0;
+}

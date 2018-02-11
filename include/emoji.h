@@ -57,11 +57,10 @@ typedef struct {
 typedef struct {
     size_t fSize;
     void* fData;
-} EgGeneratorResult;
+} EgGenerateResult;
 
-void emoji_generate(const EgGenerateParams* params, EgGeneratorResult* result);
-/* void emoji_make(const EmojiParams* params, EmojiResult* const result); */
-/* void emoji_free(EmojiResult* const result); */
+void emoji_generate(const EgGenerateParams* params, EgGenerateResult* result);
+void emoji_free(EgGenerateResult* const result);
 
 #ifdef __cplusplus
 }

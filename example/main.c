@@ -14,12 +14,14 @@ int main() {
     params.fFormat = kPNG_Format;
     params.fQuality = 100;
 
-    EgGeneratorResult result;
+    EgGenerateResult result;
     emoji_generate(&params, &result);
 
     FILE *fp = fopen("./emoji.png", "w");
     fwrite(result.fData, result.fSize, 1, fp);
     fclose(fp);
+
+    emoji_free(&result);
 
     return 0;
 }
