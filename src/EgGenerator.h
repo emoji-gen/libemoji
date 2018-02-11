@@ -1,14 +1,15 @@
 #ifndef SRC_EG_GENERATOR_H_
 #define SRC_EG_GENERATOR_H_
 
+#include <string>
+#include <vector>
+
 #include "SkCanvas.h"
 #include "SkColor.h"
 #include "SkTypeface.h"
 #include "SkScalar.h"
 
-#include <string>
-
-class EgGenerator {
+class EgGenerator final {
 public:
     EgGenerator();
 
