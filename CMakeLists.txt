@@ -4,6 +4,7 @@ project(emoji)
 
 # Common
 #~~~~~~~~~
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -Wall -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native")
@@ -12,6 +13,7 @@ set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "obj")
 include_directories(
   ${CMAKE_SOURCE_DIR}/include
+  ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/externals/skia/include/core
   ${CMAKE_SOURCE_DIR}/externals/skia/include/config
   ${CMAKE_SOURCE_DIR}/externals/skia/include/util
