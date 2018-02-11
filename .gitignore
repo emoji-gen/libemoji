@@ -6,3 +6,5 @@ Makefile
 bin
 obj
 *.o
+*.png
+*.webp
