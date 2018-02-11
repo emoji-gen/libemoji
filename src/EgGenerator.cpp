@@ -62,9 +62,6 @@ sk_sp<SkData> EgGenerator::generate() {
     sk_sp<SkImage> image(surface->makeImageSnapshot());
     sk_sp<SkData> data(image->encodeToData(fFormat, fQuality));
 
-    SkFILEWStream fh((std::string("./emoji.png").c_str()));
-    (void)fh.write(data->data(), data->size());
-
     return data;
 }
 
