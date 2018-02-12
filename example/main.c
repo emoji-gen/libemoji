@@ -4,13 +4,13 @@
 
 int main() {
     EgGenerateParams params;
-    params.fText = "確実に\n痩せる";
-    params.fWidth = 1024;
-    params.fHeight = 1024;
-    params.fColor = 0xFFEC71A1;
+    params.fText = "lib\nemoji";
+    params.fWidth = 256;
+    params.fHeight = 256;
+    params.fColor = 0xFF000000;
     params.fBackgroundColor = 0x00FFFFFF;
     params.fTextAlign = kLeft_Align;
-    params.fTypefaceName = "Noto Sans Mono CJK JP Bold";
+    params.fTypefaceName = "Linux Libertine";
     params.fFormat = kPNG_Format;
     params.fQuality = 100;
 
