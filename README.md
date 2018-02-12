@@ -1,5 +1,8 @@
-# libemoji
+# libemoji &nbsp;[![Build Status](https://travis-ci.org/emoji-gen/libemoji.svg?branch=master)](https://travis-ci.org/emoji-gen/libemoji)
 
+:tada: Ultimate Emoji Generator library using Skia
+
+<br>
 <img src="example/emoji.png" width="128" height="128" alt="libemoji">
 
 ## System requirements
