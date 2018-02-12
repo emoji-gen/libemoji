@@ -3,7 +3,7 @@
 
 - CMake
 - Python 2.7
-- C++ 14
+- C++14 Compiler
 
 ### macOS
 
