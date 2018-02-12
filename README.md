@@ -1,4 +1,7 @@
 # libemoji
+
+<img src="example/emoji.png" width="128" height="128" alt="libemoji">
+
 ## System requirements
 
 - CMake
