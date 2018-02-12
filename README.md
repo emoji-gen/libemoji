@@ -25,3 +25,6 @@ $ sudo apt-get install cmake g++ python libfontconfig1-dev \
 $ cmake .
 $ make
 ```
+
+## License
+MIT &copy; Emoji Generator
