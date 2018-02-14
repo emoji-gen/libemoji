@@ -54,7 +54,7 @@ else()
   target_link_libraries(example
     emoji
     GL
-    bgtkgl
+    fontconfig
     ${pthread_library}
   )
 endif()
