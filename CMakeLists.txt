@@ -50,8 +50,10 @@ if(APPLE)
     "-framework CoreServices"
   )
 else()
+  find_library(pthread_library pthread)
   target_link_libraries(example
     emoji
+    ${pthread_library}
   )
 endif()
 
