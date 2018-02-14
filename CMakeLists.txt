@@ -55,6 +55,7 @@ else()
     emoji
     dl
     fontconfig
+    freetype
     GL
     ${pthread_library}
   )
