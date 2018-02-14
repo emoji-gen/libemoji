@@ -53,8 +53,9 @@ else()
   find_library(pthread_library pthread)
   target_link_libraries(example
     emoji
-    GL
+    dl
     fontconfig
+    GL
     ${pthread_library}
   )
 endif()
