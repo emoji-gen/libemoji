@@ -53,6 +53,8 @@ else()
   find_library(pthread_library pthread)
   target_link_libraries(example
     emoji
+    GL
+    bgtkgl
     ${pthread_library}
   )
 endif()
