@@ -9,6 +9,7 @@
 
 - CMake
 - Python 2.7
+- C11 Compiler
 - C++14 Compiler
 
 ### macOS
