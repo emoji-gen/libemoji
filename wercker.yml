@@ -11,3 +11,8 @@ build:
 
           cmake .
           make
+
+    - script:
+        name: output dummy file
+        code: |
+          touch $WERCKER_OUTPUT_DIR/dummy
