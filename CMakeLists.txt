@@ -36,8 +36,9 @@ target_link_libraries(emoji skia z)
 
 # example
 #~~~~~~~~~~
+file(GLOB example_files "example/*.c")
 add_executable(example
-  example/main.c
+  ${example_files}
 )
 add_dependencies(example emoji)
 
