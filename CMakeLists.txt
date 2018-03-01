@@ -50,14 +50,13 @@ if(APPLE)
     "-framework CoreServices"
   )
 else()
-  find_library(pthread_library pthread)
   target_link_libraries(example
     emoji
     dl
     fontconfig
     freetype
     GL
-    ${pthread_library}
+    pthread
   )
 endif()
 
