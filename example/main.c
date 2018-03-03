@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "emoji.h"
 
 int main() {
     EgGenerateParams params;
+    memset(&params, 0, sizeof(params));
+
     params.fText = "lib\nemoji";
     params.fWidth = 256;
     params.fHeight = 256;
