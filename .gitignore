@@ -8,5 +8,3 @@ lib
 *.o
 *.png
 *.webp
-
-!example/*.png

@@ -3,7 +3,7 @@
 :tada: Ultimate Emoji Generator library using Skia
 
 <br>
-<img src="example/emoji.png" width="128" height="128" alt="libemoji">
+<img src="emoji.png" width="128" height="128" alt="libemoji">
 
 ## System requirements
 
