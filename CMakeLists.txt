@@ -53,12 +53,14 @@ if(APPLE)
 else()
   set(THREADS_PREFER_PTHREAD_FLAG TRUE)
   find_package(Threads REQUIRED)
+  find_package(OpenGL REQUIRED)
 
   find_package(PkgConfig)
   pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
 
   include_directories(
     ${FONTCONFIG_INCLUDE_DIRS}
+    ${OPENGL_INCLUDE_DIR}
   )
   link_directories(
     ${FONTCONFIG_LIBRARY_DIRS}
@@ -66,7 +68,7 @@ else()
 
   target_link_libraries(example
     emoji
-    GL
+    ${OPENGL_LIBRARIES}
     ${FONTCONFIG_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CMAKE_DL_LIBS}
