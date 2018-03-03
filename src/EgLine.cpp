@@ -6,22 +6,21 @@
 EgLine::EgLine(
     const std::string& text,
     SkScalar width,
-    SkScalar lineHeight,
-    sk_sp<SkTypeface> typeface
-) : fText(text), fWidth(width), fLineHeight(lineHeight), fTypeface(typeface) {
+    SkScalar lineHeight
+) : fText(text), fWidth(width), fLineHeight(lineHeight) {
 }
 
 EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     SkPaint paint;
     paint.setColor(SK_ColorBLACK);
     paint.setAntiAlias(true);
-    paint.setTypeface(fTypeface);
+    if (fTypeface != nullptr) paint.setTypeface(fTypeface);
     paint.setTextAlign(SkPaint::kLeft_Align);
 
     SkRect bounds;
     MeasureSpec measureSpec;
 
-    // フォントサイズ固定モード
+    // テキストサイズ固定モード: 2回目の測定処理
     if (!SkScalarIsNaN(textSize)) {
         paint.setTextSize(textSize);
         paint.measureText(fText.c_str(), fText.length(), &bounds);
@@ -39,12 +38,24 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     SkScalar prevTextSize = SK_ScalarNaN;
 
     if (!fText.empty()) {
-        for (SkScalar i = minTextSize; i < maxTextSize; i += 0.5) {
+        // 非伸縮モード: 初期フォントサイズを調整
+        if (fDisableStretch) {
+            for (SkScalar i = minTextSize; i > 0; i -= 0.5) {
+                paint.setTextSize(i);
+                paint.measureText(fText.c_str(), fText.length(), &bounds);
+                if (bounds.width() < fWidth) {
+                    minTextSize = i;
+                    break;
+                }
+            }
+        }
 
+        for (SkScalar i = minTextSize; i < maxTextSize; i += 0.5) {
             paint.setTextSize(i);
             paint.measureText(fText.c_str(), fText.length(), &bounds);
 
             if (bounds.height() > fLineHeight) break;
+            if (fDisableStretch && bounds.width() > fWidth) break;
 
             prevTextSize = i;
             prevBounds = bounds;
@@ -74,7 +85,7 @@ void EgLine::draw(SkCanvas* canvas, int y, MeasureSpec spec) {
         break;
     case SkPaint::kCenter_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
-            x = -spec.fBounds.fLeft;
+            x = -spec.fBounds.fLeft * spec.fTextScaleX;
         } else {
             x = (fWidth - spec.fBounds.width()) / SkIntToScalar(2) - spec.fBounds.fLeft;
         }

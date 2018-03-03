@@ -48,6 +48,7 @@ typedef struct {
     // Style
     EgAlign fTextAlign;
     bool fTextSizeFixed;
+    bool fDisableStretch;
 
     // Font
     const char* fTypefaceFile;

@@ -20,6 +20,7 @@ public:
     void setHeight(uint32_t height) { fHeight = SkIntToScalar(height); }
     void setTextAlign(SkPaint::Align align) { fTextAlign = align; }
     void setTextSizeFixed(bool textSizeFixed) { fTextSizeFixed = textSizeFixed; }
+    void setDisableStretch(bool disableStretch) { fDisableStretch = disableStretch; }
     void setTypefaceFromName(const char* familyName);
     void setTypefaceFromFile(const char* path);
     void setColor(SkColor color) { fColor = color; }
@@ -33,6 +34,7 @@ private:
     SkScalar fHeight = SkIntToScalar(128);
     SkPaint::Align fTextAlign = SkPaint::kCenter_Align;
     bool fTextSizeFixed = false;
+    bool fDisableStretch = false;
     sk_sp<SkTypeface> fTypeface;
     SkColor fColor = SK_ColorBLACK;
     SkColor fBackgroundColor = SK_ColorTRANSPARENT;

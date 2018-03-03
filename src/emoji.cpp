@@ -59,6 +59,7 @@ EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result)
     // Style
     generator.setTextAlign(convertToSkAlign(params->fTextAlign));
     generator.setTextSizeFixed(params->fTextSizeFixed);
+    generator.setDisableStretch(params->fDisableStretch);
 
     // Font
     if (params->fTypefaceFile != nullptr && params->fTypefaceName != nullptr) {

@@ -23,24 +23,25 @@ public:
     EgLine(
         const std::string& text,
         SkScalar width,
-        SkScalar lineHeight,
-        sk_sp<SkTypeface> typeface
+        SkScalar lineHeight
     );
 
+    void setTypeface(sk_sp<SkTypeface> typeface) { fTypeface = typeface; }
     void setTextAlign(SkPaint::Align textAlign) { fTextAlign = textAlign; }
     void setColor(SkColor color) { fColor = color; }
+    void setDisableStretch(bool disableStretch) { fDisableStretch = disableStretch; }
 
     MeasureSpec measure(SkScalar textSize = SK_ScalarNaN);
     void draw(SkCanvas* canvas, int y, MeasureSpec spec);
 
 private:
-
     std::string fText;
     SkScalar fWidth;
     SkScalar fLineHeight;
     SkPaint::Align fTextAlign;
     sk_sp<SkTypeface> fTypeface;
     SkColor fColor;
+    bool fDisableStretch;
 };
 
 #endif
