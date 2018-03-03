@@ -20,6 +20,7 @@ public:
     void setHeight(uint32_t height) { fHeight = SkIntToScalar(height); }
     void setTextAlign(SkPaint::Align align) { fTextAlign = align; }
     void setTypefaceFromName(const char* familyName);
+    void setTypefaceFromFile(const char* path);
     void setColor(SkColor color) { fColor = color; }
     void setBackgroundColor(SkColor color) { fBackgroundColor = color; }
     void setFormat(SkEncodedImageFormat format) { fFormat = format; }

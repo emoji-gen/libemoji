@@ -19,6 +19,11 @@ void EgGenerator::setTypefaceFromName(const char* familyName) {
     fTypeface = SkTypeface::MakeFromName(familyName, SkFontStyle());
 }
 
+void EgGenerator::setTypefaceFromFile(const char* path) {
+    fTypeface = SkTypeface::MakeFromFile(path);
+}
+
+
 void EgGenerator::setText(const char* text) {
     std::istringstream stream(text);
     std::string line;

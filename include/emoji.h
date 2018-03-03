@@ -8,6 +8,11 @@
 extern "C" {
 #endif
 
+// Error Codes
+typedef int EgError;
+
+#define EG_OK 0
+#define EG_INVALID_PARAMETER -1
 
 // Align
 //~~~~~~~~~
@@ -43,7 +48,7 @@ typedef struct {
     EgAlign fTextAlign;
 
     // Font
-    const char* fTypefacePath;
+    const char* fTypefaceFile;
     const char* fTypefaceName;
 
     // Image
@@ -59,7 +64,7 @@ typedef struct {
     void* fData;
 } EgGenerateResult;
 
-void emoji_generate(const EgGenerateParams* params, EgGenerateResult* result);
+EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result);
 void emoji_free(EgGenerateResult* const result);
 
 #ifdef __cplusplus
