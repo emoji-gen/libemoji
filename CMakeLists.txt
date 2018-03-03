@@ -51,17 +51,24 @@ if(APPLE)
     "-framework CoreServices"
   )
 else()
-  find_package(PkgConfig)
-
   set(THREADS_PREFER_PTHREAD_FLAG TRUE)
   find_package(Threads REQUIRED)
+
+  find_package(PkgConfig)
+  pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
+
+  include_directories(
+    ${FONTCONFIG_INCLUDE_DIRS}
+  )
+  link_directories(
+    ${FONTCONFIG_LIBRARY_DIRS}
+  )
 
   target_link_libraries(example
     emoji
     dl
-    fontconfig
-    freetype
     GL
+    ${FONTCONFIG_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
   )
 endif()
