@@ -3,11 +3,7 @@
 
 #include "EgLine.h"
 
-EgLine::EgLine(
-    const std::string& text,
-    SkScalar width,
-    SkScalar lineHeight
-) : fText(text), fWidth(width), fLineHeight(lineHeight) {
+EgLine::EgLine() {
 }
 
 EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {

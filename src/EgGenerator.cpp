@@ -48,7 +48,10 @@ sk_sp<SkData> EgGenerator::generate() {
     // 行ボックスを作成
     std::vector<EgLine> lines;
     for (auto& text : fTexts) {
-        EgLine line(text, fWidth, lineHeight);
+        EgLine line;
+        line.setWidth(fWidth);
+        line.setLineHeight(lineHeight);
+        line.setText(text);
         line.setTypeface(fTypeface);
         line.setTextAlign(fTextAlign);
         line.setColor(fColor);

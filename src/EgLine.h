@@ -20,12 +20,11 @@ public:
         SkRect fBounds;
     };
 
-    EgLine(
-        const std::string& text,
-        SkScalar width,
-        SkScalar lineHeight
-    );
+    EgLine();
 
+    void setText(const std::string& text) { fText = text; }
+    void setWidth(SkScalar width) { fWidth = width; }
+    void setLineHeight(SkScalar lineHeight) { fLineHeight = lineHeight; }
     void setTypeface(sk_sp<SkTypeface> typeface) { fTypeface = typeface; }
     void setTextAlign(SkPaint::Align textAlign) { fTextAlign = textAlign; }
     void setColor(SkColor color) { fColor = color; }
@@ -35,9 +34,9 @@ public:
     void draw(SkCanvas* canvas, int y, MeasureSpec spec);
 
 private:
-    std::string fText;
-    SkScalar fWidth;
-    SkScalar fLineHeight;
+    std::string fText = "";
+    SkScalar fWidth = SkIntToScalar(128);
+    SkScalar fLineHeight = SkIntToScalar(128);
     SkPaint::Align fTextAlign;
     sk_sp<SkTypeface> fTypeface;
     SkColor fColor;
