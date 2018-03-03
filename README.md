@@ -12,6 +12,11 @@
 - C11 Compiler
 - C++14 Compiler
 
+### Official support platforms
+- macOS Sierra
+- Debian 9 Stretch
+- Ubuntu 16.04
+
 ### macOS
 
 ```
