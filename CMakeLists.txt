@@ -66,10 +66,10 @@ else()
 
   target_link_libraries(example
     emoji
-    dl
     GL
     ${FONTCONFIG_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
+    ${CMAKE_DL_LIBS}
   )
 endif()
 
