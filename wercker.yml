@@ -11,11 +11,11 @@ build:
         name: setup git submodule
         code: |
           git submodule update --init --depth 1
-    # - script:
-    #     name: build
-    #     code: |
-    #       cmake .
-    #       make
+    - script:
+        name: build
+        code: |
+          cmake .
+          make
     - script:
         name: output dummy file
         code: |
