@@ -9,4 +9,4 @@ lib
 *.png
 *.webp
 
-!emoji.png
+!/emoji.png

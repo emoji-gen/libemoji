@@ -1,6 +1,7 @@
 #ifndef INCLUDE_EMOJI_H_
 #define INCLUDE_EMOJI_H_
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -46,6 +47,7 @@ typedef struct {
 
     // Style
     EgAlign fTextAlign;
+    bool fTextSizeFixed;
 
     // Font
     const char* fTypefaceFile;

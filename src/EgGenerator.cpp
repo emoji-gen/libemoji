@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <utility>
@@ -56,6 +57,21 @@ sk_sp<SkData> EgGenerator::generate() {
     // 高さ・幅を計算
     for (auto& line : lines) {
         specs.push_back(line.measure());
+    }
+
+    // サイズ固定モード: 最小テキストサイズで再計算
+    if (fTextSizeFixed) {
+        auto foundSpecItr = std::min_element(
+            specs.begin(), specs.end(),
+            [](EgLine::MeasureSpec lhs, EgLine::MeasureSpec rhs) { return lhs.fTextSize < rhs.fTextSize; }
+        );
+
+        if (foundSpecItr != specs.end()) {
+            SkScalar minTextSize = foundSpecItr->fTextSize;
+            for (std::size_t i = 0; i < lines.size(); ++i) {
+                specs[i] = lines[i].measure(minTextSize);
+            }
+        }
     }
 
     // テキストを描画

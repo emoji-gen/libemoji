@@ -11,7 +11,7 @@ EgLine::EgLine(
 ) : fText(text), fWidth(width), fLineHeight(lineHeight), fTypeface(typeface) {
 }
 
-EgLine::MeasureSpec EgLine::measure() {
+EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     SkPaint paint;
     paint.setColor(SK_ColorBLACK);
     paint.setAntiAlias(true);
@@ -19,6 +19,19 @@ EgLine::MeasureSpec EgLine::measure() {
     paint.setTextAlign(SkPaint::kLeft_Align);
 
     SkRect bounds;
+    MeasureSpec measureSpec;
+
+    // フォントサイズ固定モード
+    if (!SkScalarIsNaN(textSize)) {
+        paint.setTextSize(textSize);
+        paint.measureText(fText.c_str(), fText.length(), &bounds);
+
+        measureSpec.fTextSize = textSize;
+        measureSpec.fBounds = bounds;
+        measureSpec.fTextScaleX = bounds.width() > fWidth ? fWidth / bounds.width() : 1;
+        return measureSpec;
+    }
+
     SkScalar minTextSize = fLineHeight * SkDoubleToScalar(0.9);
     SkScalar maxTextSize = fLineHeight * SkIntToScalar(10);
 
@@ -38,8 +51,7 @@ EgLine::MeasureSpec EgLine::measure() {
         }
     }
 
-    MeasureSpec measureSpec;
-    measureSpec.fTextSize = prevTextSize;;
+    measureSpec.fTextSize = prevTextSize;
     measureSpec.fBounds = prevBounds;
     measureSpec.fTextScaleX = prevBounds.width() > fWidth ? fWidth / prevBounds.width() : 1;
 

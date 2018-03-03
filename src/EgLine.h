@@ -30,7 +30,7 @@ public:
     void setTextAlign(SkPaint::Align textAlign) { fTextAlign = textAlign; }
     void setColor(SkColor color) { fColor = color; }
 
-    MeasureSpec measure();
+    MeasureSpec measure(SkScalar textSize = SK_ScalarNaN);
     void draw(SkCanvas* canvas, int y, MeasureSpec spec);
 
 private:
