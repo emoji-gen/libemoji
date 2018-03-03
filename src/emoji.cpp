@@ -13,27 +13,34 @@
 /**
  * Convert EgAlign -> SkPaint::Align
  */
-static SkPaint::Align convertToSkAlign(EgAlign align) {
-    switch (align) {
+static bool convertToSkAlign(EgAlign src, SkPaint::Align &dest) {
+    switch (src) {
     case kLeft_Align:
-        return SkPaint::kLeft_Align;
+        dest = SkPaint::kLeft_Align;
+        return true;
     case kCenter_Align:
-        return SkPaint::kCenter_Align;
+        dest = SkPaint::kCenter_Align;
+        return true;
     case kRight_Align:
-        return SkPaint::kRight_Align;
+        dest = SkPaint::kRight_Align;
+        return true;
     }
+    return false;
 }
 
 /**
  * Convert EgFormat -> SkEncodedImageFormat
  */
-static SkEncodedImageFormat convertToSkFormat(EgFormat format) {
-    switch (format) {
+static bool convertToSkFormat(EgFormat src, SkEncodedImageFormat &dest) {
+    switch (src) {
     case kPNG_Format:
-        return SkEncodedImageFormat::kPNG;
+        dest = SkEncodedImageFormat::kPNG;
+        return true;
     case kWEBP_Format:
-        return SkEncodedImageFormat::kWEBP;
+        dest = SkEncodedImageFormat::kWEBP;
+        return true;
     }
+    return false;
 }
 
 EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result) {
@@ -57,7 +64,11 @@ EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result)
     generator.setBackgroundColor(params->fBackgroundColor);
 
     // Style
-    generator.setTextAlign(convertToSkAlign(params->fTextAlign));
+    SkPaint::Align align;
+    if (!convertToSkAlign(params->fTextAlign, align)) {
+        return EG_INVALID_PARAMETER;
+    }
+    generator.setTextAlign(align);
     generator.setTextSizeFixed(params->fTextSizeFixed);
     generator.setDisableStretch(params->fDisableStretch);
 
@@ -79,7 +90,11 @@ EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result)
     }
 
     // Image
-    generator.setFormat(convertToSkFormat(params->fFormat));
+    SkEncodedImageFormat format;
+    if (!convertToSkFormat(params->fFormat, format)) {
+        return EG_INVALID_PARAMETER;
+    }
+    generator.setFormat(format);
     if (params->fQuality < 0 || params->fQuality > 100) {
         return EG_INVALID_PARAMETER;
     }
