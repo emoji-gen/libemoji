@@ -51,13 +51,23 @@ if(APPLE)
     "-framework CoreServices"
   )
 else()
+  find_package(PkgConfig)
+  pkg_check_modules(PTHREAD REQUIRED pthread)
+
+  include_directories(
+    ${PTHREAD_INCLUDE_DIRS}
+  )
+  link_directories(
+    ${PTHREAD_LIBRARY_DIRS}
+  )
+
   target_link_libraries(example
     emoji
     dl
     fontconfig
     freetype
     GL
-    pthread
+    ${PTHREAD_LIBRARIES}
   )
 endif()
 
