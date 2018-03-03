@@ -39,5 +39,26 @@ $ cmake .
 $ make
 ```
 
+## Example
+
+```c
+#include "emoji.h"
+
+...
+
+EgGenerateParams params;
+memset(&params, 0, sizeof(params));
+params.fText = "絵文\n字。";
+params.fWidth = 256;
+params.fHeight = 256;
+
+EgGenerateResult result;                                                                                                     
+if (emoji_generate(&params, &result) == EG_OK) {
+    FILE *fp = fopen("./emoji.png", "w");
+    fwrite(result.fData, result.fSize, 1, fp);
+    fclose(fp);
+}
+```
+
 ## License
 MIT &copy; Emoji Generator
