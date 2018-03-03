@@ -15,7 +15,7 @@
 ### Official support platforms
 - macOS Sierra
 - Debian 9 Stretch
-- Ubuntu 16.04
+- Ubuntu 16.04 LTS
 
 ### macOS
 
@@ -23,7 +23,7 @@
 $ brew install cmake
 ```
 
-### Ubuntu 16.04 TLS
+### Debian 9 Stretch / Ubuntu 16.04 TLS
 
 ```
 $ sudo apt-get update
