@@ -23,5 +23,4 @@ build:
   after-steps:
     - wantedly/pretty-slack-notify:
         team: robotclub-kut
-        token: $SLACK_API_TOKEN
-        channel: emoji
+        webhook_url: $SLACK_WEBHOOL_URL
