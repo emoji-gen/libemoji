@@ -52,14 +52,9 @@ if(APPLE)
   )
 else()
   find_package(PkgConfig)
-  pkg_check_modules(PTHREAD REQUIRED pthread)
 
-  include_directories(
-    ${PTHREAD_INCLUDE_DIRS}
-  )
-  link_directories(
-    ${PTHREAD_LIBRARY_DIRS}
-  )
+  set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+  find_package(Threads REQUIRED)
 
   target_link_libraries(example
     emoji
@@ -67,7 +62,7 @@ else()
     fontconfig
     freetype
     GL
-    ${PTHREAD_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
   )
 endif()
 
