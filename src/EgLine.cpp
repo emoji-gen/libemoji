@@ -40,7 +40,7 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     if (!fText.empty()) {
         // 非伸縮モード: 初期フォントサイズを調整
         if (fDisableStretch) {
-            for (SkScalar i = minTextSize; i > 0; i -= 0.5) {
+            for (SkScalar i = minTextSize; i > SkIntToScalar(0); i -= SkDoubleToScalar(0.5)) {
                 paint.setTextSize(i);
                 paint.measureText(fText.c_str(), fText.length(), &bounds);
                 if (bounds.width() < fWidth) {
@@ -50,7 +50,7 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
             }
         }
 
-        for (SkScalar i = minTextSize; i < maxTextSize; i += 0.5) {
+        for (SkScalar i = minTextSize; i < maxTextSize; i += SkDoubleToScalar(0.5)) {
             paint.setTextSize(i);
             paint.measureText(fText.c_str(), fText.length(), &bounds);
 
@@ -64,7 +64,8 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
 
     measureSpec.fTextSize = prevTextSize;
     measureSpec.fBounds = prevBounds;
-    measureSpec.fTextScaleX = prevBounds.width() > fWidth ? fWidth / prevBounds.width() : 1;
+    measureSpec.fTextScaleX =
+        prevBounds.width() > fWidth ? fWidth / prevBounds.width() : SkIntToScalar(1);
 
     return measureSpec;
 }
