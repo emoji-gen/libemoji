@@ -21,5 +21,5 @@ build:
         code: |
           touch $WERCKER_OUTPUT_DIR/dummy
   after-steps:
-    - wantedly/pretty-slack-notify:
-        webhook_url: $SLACK_WEBHOOK_URL
+    - slack-notifier:
+        url: $SLACK_WEBHOOK_URL
