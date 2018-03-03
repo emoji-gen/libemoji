@@ -11,16 +11,15 @@ build:
         name: setup git submodule
         code: |
           git submodule update --init --depth 1
-    - script:
-        name: build
-        code: |
-          cmake .
-          make
+    # - script:
+    #     name: build
+    #     code: |
+    #       cmake .
+    #       make
     - script:
         name: output dummy file
         code: |
           touch $WERCKER_OUTPUT_DIR/dummy
   after-steps:
     - wantedly/pretty-slack-notify:
-        team: robotclub-kut
         webhook_url: $SLACK_WEBHOOK_URL
