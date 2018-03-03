@@ -1,12 +1,8 @@
 box: debian
 build:
   steps:
-    - script:
-        name: install dependencies
-        code: |
-          apt-get update -qq
-          apt-get install git cmake g++ python libfontconfig1-dev \
-            libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y -qq
+    - install-packages:
+      packages: git cmake g++ python libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev
     - script:
         name: setup git submodule
         code: |
