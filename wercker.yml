@@ -5,7 +5,7 @@ build:
         name: install dependencies
         code: |
           apt-get update -qq
-          apt-get install git cmake g++ python ruby libfontconfig1-dev \
+          apt-get install git cmake g++ python curl libfontconfig1-dev \
             libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y -qq
     - script:
         name: setup git submodule
