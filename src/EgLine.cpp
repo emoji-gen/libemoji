@@ -66,6 +66,7 @@ void EgLine::draw(SkCanvas* canvas, int y, MeasureSpec spec) {
     paint.setTextAlign(SkPaint::kLeft_Align);
     paint.setTextSize(spec.fTextSize);
 
+    // for X-axis
     SkScalar x;
     switch (fTextAlign) {
     case SkPaint::kLeft_Align:
@@ -87,6 +88,9 @@ void EgLine::draw(SkCanvas* canvas, int y, MeasureSpec spec) {
         break;
     }
 
+    // for Y-axis
+    SkScalar offsetY = (fLineHeight - spec.fBounds.height()) / SkIntToScalar(2);
+
     paint.setTextScaleX(spec.fTextScaleX);
-    canvas->drawString(fText.c_str(), x, y - spec.fBounds.fTop, paint);
+    canvas->drawString(fText.c_str(), x, y - spec.fBounds.fTop + offsetY, paint);
 }
