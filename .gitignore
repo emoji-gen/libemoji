@@ -8,3 +8,5 @@ lib
 *.o
 *.png
 *.webp
+
+!emoji.png
