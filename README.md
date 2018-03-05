@@ -60,5 +60,7 @@ if (emoji_generate(&params, &result) == EG_OK) {
 }
 ```
 
+See also `example` directory.
+
 ## License
 MIT &copy; Emoji Generator
