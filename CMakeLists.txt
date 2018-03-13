@@ -32,6 +32,7 @@ add_library(emoji STATIC
 )
 add_dependencies(emoji skia)
 target_link_libraries(emoji skia z)
+set_property(TARGET emoji PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 
 # example
