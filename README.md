@@ -12,10 +12,9 @@
 - C11 Compiler
 - C++14 Compiler
 
-### Official support platforms
+### Official supported platforms
 - macOS Sierra
 - Debian 9 Stretch
-- Ubuntu 16.04 LTS
 
 ### macOS
 
@@ -23,7 +22,7 @@
 $ brew install cmake
 ```
 
-### Debian 9 Stretch / Ubuntu 16.04 TLS
+### Debian 9 Stretch
 
 ```
 $ sudo apt-get update
