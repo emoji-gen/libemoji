@@ -6,7 +6,7 @@ before_script:
 
 script:
   - cmake -G Ninja
-  - ninja
+  - travis_wait 30 ninja
 
 notifications:
   slack:
