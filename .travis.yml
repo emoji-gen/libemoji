@@ -1,6 +1,9 @@
 osx_image: xcode9.2
 language: objective-c
 
+before_script:
+  - brew install ninja
+
 script:
   - cmake -G Ninja
   - ninja
