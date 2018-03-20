@@ -66,7 +66,7 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     return measureSpec;
 }
 
-void EgLine::draw(SkCanvas* canvas, std::size_t y, MeasureSpec spec) {
+void EgLine::draw(SkCanvas* canvas, std::size_t y, const MeasureSpec& spec) {
     SkPaint paint;
     paint.setColor(fColor);
     paint.setAntiAlias(true);
