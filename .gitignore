@@ -9,4 +9,8 @@ lib
 *.png
 *.webp
 
+*.ninja
+.ninja_deps
+.ninja_log
+
 !/emoji.png
