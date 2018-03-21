@@ -1,13 +1,14 @@
 box: debian
 build:
   steps:
+    - install-packages:
+      packages: git cmake g++ python libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev wget
     - script:
         name: debug
         code: |
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+          apt-get update
           apt-get install clang-format-7
-    - install-packages:
-      packages: git cmake g++ python libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev clang-format-7
     - script:
         name: setup git submodule
         code: |
