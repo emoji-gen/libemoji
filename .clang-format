@@ -35,7 +35,7 @@ BraceWrapping:
   IndentBraces:    false
   # SplitEmptyFunction: true
   SplitEmptyRecord: true
-  SplitEmptyNamespace: true
+  # SplitEmptyNamespace: true
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Attach
 BreakBeforeInheritanceComma: false
