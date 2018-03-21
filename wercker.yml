@@ -11,6 +11,7 @@ build:
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
           apt-get update
           apt-get install -y clang-format-7
+          which clang-format-7
     - script:
         name: setup git submodule
         code: |
