@@ -6,11 +6,11 @@ build:
     - script:
         name: debug
         code: |
-          echo 'deb http://apt.llvm.org/unstable/ llvm-toolchain-6.0 main' >> /etc/apt/sources.list
-          echo 'deb-src http://apt.llvm.org/unstable/ llvm-toolchain-6.0 main' >> /etc/apt/sources.list
+          echo 'deb http://apt.llvm.org/stretch/ llvm-toolchain-stretch main' >> /etc/apt/sources.list
+          echo 'deb-src http://apt.llvm.org/stretch/ llvm-toolchain-stretch main' >> /etc/apt/sources.list
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
           apt-get update
-          apt-get install -y clang-format-6.0
+          apt-get install -y clang-format-7
     - script:
         name: setup git submodule
         code: |
