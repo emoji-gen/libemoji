@@ -4,8 +4,8 @@ build:
     - script:
         name: debug
         code: |
-          apt-get update
-          apt-cache search clang-format
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+          apt-get install clang-format-7
     - install-packages:
       packages: git cmake g++ python libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev clang-format-7
     - script:
