@@ -3,8 +3,7 @@
 
 #include "EgLine.h"
 
-EgLine::EgLine() {
-}
+EgLine::EgLine() {}
 
 EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     SkPaint paint;
@@ -23,7 +22,8 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
 
         measureSpec.fTextSize = textSize;
         measureSpec.fBounds = bounds;
-        measureSpec.fTextScaleX = bounds.width() > fWidth ? fWidth / bounds.width() : 1;
+        measureSpec.fTextScaleX =
+            bounds.width() > fWidth ? fWidth / bounds.width() : 1;
         return measureSpec;
     }
 
@@ -36,7 +36,8 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     if (!fText.empty()) {
         // 非伸縮モード: 初期フォントサイズを調整
         if (fDisableStretch) {
-            for (SkScalar i = minTextSize; i > SkIntToScalar(0); i -= SkDoubleToScalar(0.5)) {
+            for (SkScalar i = minTextSize; i > SkIntToScalar(0);
+                 i -= SkDoubleToScalar(0.5)) {
                 paint.setTextSize(i);
                 paint.measureText(fText.c_str(), fText.length(), &bounds);
                 if (bounds.width() < fWidth) {
@@ -46,7 +47,8 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
             }
         }
 
-        for (SkScalar i = minTextSize; i < maxTextSize; i += SkDoubleToScalar(0.5)) {
+        for (SkScalar i = minTextSize; i < maxTextSize;
+             i += SkDoubleToScalar(0.5)) {
             paint.setTextSize(i);
             paint.measureText(fText.c_str(), fText.length(), &bounds);
 
@@ -60,13 +62,14 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
 
     measureSpec.fTextSize = prevTextSize;
     measureSpec.fBounds = prevBounds;
-    measureSpec.fTextScaleX =
-        prevBounds.width() > fWidth ? fWidth / prevBounds.width() : SkIntToScalar(1);
+    measureSpec.fTextScaleX = prevBounds.width() > fWidth
+                                  ? fWidth / prevBounds.width()
+                                  : SkIntToScalar(1);
 
     return measureSpec;
 }
 
-void EgLine::draw(SkCanvas* canvas, std::size_t y, const MeasureSpec& spec) {
+void EgLine::draw(SkCanvas *canvas, std::size_t y, const MeasureSpec &spec) {
     SkPaint paint;
     paint.setColor(fColor);
     paint.setAntiAlias(true);
@@ -84,7 +87,8 @@ void EgLine::draw(SkCanvas* canvas, std::size_t y, const MeasureSpec& spec) {
         if (spec.fTextScaleX < SkIntToScalar(1)) {
             x = -spec.fBounds.fLeft * spec.fTextScaleX;
         } else {
-            x = (fWidth - spec.fBounds.width()) / SkIntToScalar(2) - spec.fBounds.fLeft;
+            x = (fWidth - spec.fBounds.width()) / SkIntToScalar(2) -
+                spec.fBounds.fLeft;
         }
         break;
     case SkPaint::kRight_Align:
@@ -100,5 +104,6 @@ void EgLine::draw(SkCanvas* canvas, std::size_t y, const MeasureSpec& spec) {
     SkScalar offsetY = (fLineHeight - spec.fBounds.height()) / SkIntToScalar(2);
 
     paint.setTextScaleX(spec.fTextScaleX);
-    canvas->drawString(fText.c_str(), x, y - spec.fBounds.fTop + offsetY, paint);
+    canvas->drawString(fText.c_str(), x, y - spec.fBounds.fTop + offsetY,
+                       paint);
 }

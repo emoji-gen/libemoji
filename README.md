@@ -50,22 +50,29 @@ int main(void) {
     params.fWidth = 256;
     params.fHeight = 256;
 
-    EgGenerateResult result;                                                                                                     
+    EgGenerateResult result;
     if (emoji_generate(&params, &result) != EG_OK) {
         emoji_free(&result);
         return -1;
     }
-    
+
     FILE *fp = fopen("./emoji.png", "w");
     fwrite(result.fData, result.fSize, 1, fp);
     fclose(fp);
-    
+
     emoji_free(&result);
     return 0;
 }
 ```
 
 See also `example` directory.
+
+## Development
+### Run formatter
+
+```
+$ clang-format -i -style=file src/*.cpp src/*.h
+```
 
 ## License
 MIT &copy; Emoji Generator

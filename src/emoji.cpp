@@ -4,11 +4,11 @@
 #include <vector>
 
 #include "SkData.h"
-#include "SkPaint.h"
 #include "SkEncodedImageFormat.h"
+#include "SkPaint.h"
 
-#include "emoji.h"
 #include "EgGenerator.h"
+#include "emoji.h"
 
 /**
  * Convert EgAlign -> SkPaint::Align
@@ -43,7 +43,8 @@ static bool convertToSkFormat(EgFormat src, SkEncodedImageFormat &dest) {
     return false;
 }
 
-EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result) {
+EgError emoji_generate(const EgGenerateParams *params,
+                       EgGenerateResult *result) {
     EgGenerator generator;
 
     // Text
@@ -102,7 +103,7 @@ EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result)
 
     // Generate
     sk_sp<SkData> data(generator.generate());
-    unsigned char* buf = new unsigned char[data->size()];
+    unsigned char *buf = new unsigned char[data->size()];
     data->copyRange(0, data->size(), buf);
 
     result->fSize = data->size();
@@ -111,9 +112,9 @@ EgError emoji_generate(const EgGenerateParams* params, EgGenerateResult* result)
     return EG_OK;
 }
 
-void emoji_free(EgGenerateResult* result) {
+void emoji_free(EgGenerateResult *result) {
     if (result != nullptr) {
-        delete [] reinterpret_cast<unsigned char*>(result->fData);
+        delete[] reinterpret_cast<unsigned char *>(result->fData);
         result->fData = nullptr;
         result->fSize = 0;
     }

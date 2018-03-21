@@ -22,16 +22,18 @@ public:
 
     EgLine();
 
-    void setText(const std::string& text) { fText = text; }
+    void setText(const std::string &text) { fText = text; }
     void setWidth(SkScalar width) { fWidth = width; }
     void setLineHeight(SkScalar lineHeight) { fLineHeight = lineHeight; }
     void setTypeface(sk_sp<SkTypeface> typeface) { fTypeface = typeface; }
     void setTextAlign(SkPaint::Align textAlign) { fTextAlign = textAlign; }
     void setColor(SkColor color) { fColor = color; }
-    void setDisableStretch(bool disableStretch) { fDisableStretch = disableStretch; }
+    void setDisableStretch(bool disableStretch) {
+        fDisableStretch = disableStretch;
+    }
 
     MeasureSpec measure(SkScalar textSize = SK_ScalarNaN);
-    void draw(SkCanvas* canvas, std::size_t y, const MeasureSpec& spec);
+    void draw(SkCanvas *canvas, std::size_t y, const MeasureSpec &spec);
 
 private:
     std::string fText = "";

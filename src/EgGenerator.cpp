@@ -13,19 +13,17 @@
 #include "EgGenerator.h"
 #include "EgLine.h"
 
-EgGenerator::EgGenerator() {
-}
+EgGenerator::EgGenerator() {}
 
-void EgGenerator::setTypefaceFromName(const char* familyName) {
+void EgGenerator::setTypefaceFromName(const char *familyName) {
     fTypeface = SkTypeface::MakeFromName(familyName, SkFontStyle());
 }
 
-void EgGenerator::setTypefaceFromFile(const char* path) {
+void EgGenerator::setTypefaceFromFile(const char *path) {
     fTypeface = SkTypeface::MakeFromFile(path);
 }
 
-
-void EgGenerator::setText(const char* text) {
+void EgGenerator::setText(const char *text) {
     std::istringstream stream(text);
     std::string line;
     std::vector<std::string> texts;
@@ -39,7 +37,7 @@ void EgGenerator::setText(const char* text) {
 
 sk_sp<SkData> EgGenerator::generate() {
     sk_sp<SkSurface> surface = SkSurface::MakeRasterN32Premul(fWidth, fHeight);
-    SkCanvas* canvas = surface->getCanvas();
+    SkCanvas *canvas = surface->getCanvas();
     canvas->clear(fBackgroundColor);
 
     std::vector<EgLine::MeasureSpec> specs;
@@ -47,7 +45,7 @@ sk_sp<SkData> EgGenerator::generate() {
 
     // 行ボックスを作成
     std::vector<EgLine> lines;
-    for (auto& text : fTexts) {
+    for (auto &text : fTexts) {
         EgLine line;
         line.setWidth(fWidth);
         line.setLineHeight(lineHeight);
@@ -60,7 +58,7 @@ sk_sp<SkData> EgGenerator::generate() {
     }
 
     // 高さ・幅を計算
-    for (auto& line : lines) {
+    for (auto &line : lines) {
         specs.push_back(line.measure());
     }
 
@@ -68,8 +66,9 @@ sk_sp<SkData> EgGenerator::generate() {
     if (fTextSizeFixed) {
         auto foundSpecItr = std::min_element(
             specs.begin(), specs.end(),
-            [](EgLine::MeasureSpec lhs, EgLine::MeasureSpec rhs) { return lhs.fTextSize < rhs.fTextSize; }
-        );
+            [](EgLine::MeasureSpec lhs, EgLine::MeasureSpec rhs) {
+                return lhs.fTextSize < rhs.fTextSize;
+            });
 
         if (foundSpecItr != specs.end()) {
             SkScalar minTextSize = foundSpecItr->fTextSize;
@@ -81,7 +80,7 @@ sk_sp<SkData> EgGenerator::generate() {
 
     // テキストを描画
     for (std::size_t i = 0; i < lines.size(); ++i) {
-        lines[i].draw(canvas,  lineHeight * i, specs[i]);
+        lines[i].draw(canvas, lineHeight * i, specs[i]);
     }
 
     // エンコード
@@ -90,4 +89,3 @@ sk_sp<SkData> EgGenerator::generate() {
 
     return data;
 }
-

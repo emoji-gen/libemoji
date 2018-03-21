@@ -6,8 +6,8 @@
 
 #include "SkCanvas.h"
 #include "SkColor.h"
-#include "SkTypeface.h"
 #include "SkScalar.h"
+#include "SkTypeface.h"
 
 class EgGenerator final {
 public:
@@ -15,14 +15,18 @@ public:
 
     sk_sp<SkData> generate();
 
-    void setText(const char* text);
+    void setText(const char *text);
     void setWidth(uint32_t width) { fWidth = SkIntToScalar(width); }
     void setHeight(uint32_t height) { fHeight = SkIntToScalar(height); }
     void setTextAlign(SkPaint::Align align) { fTextAlign = align; }
-    void setTextSizeFixed(bool textSizeFixed) { fTextSizeFixed = textSizeFixed; }
-    void setDisableStretch(bool disableStretch) { fDisableStretch = disableStretch; }
-    void setTypefaceFromName(const char* familyName);
-    void setTypefaceFromFile(const char* path);
+    void setTextSizeFixed(bool textSizeFixed) {
+        fTextSizeFixed = textSizeFixed;
+    }
+    void setDisableStretch(bool disableStretch) {
+        fDisableStretch = disableStretch;
+    }
+    void setTypefaceFromName(const char *familyName);
+    void setTypefaceFromFile(const char *path);
     void setColor(SkColor color) { fColor = color; }
     void setBackgroundColor(SkColor color) { fBackgroundColor = color; }
     void setFormat(SkEncodedImageFormat format) { fFormat = format; }
