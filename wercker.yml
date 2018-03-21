@@ -1,4 +1,4 @@
-box: debian
+box: debian:stretch-slim
 build:
   steps:
     - install-packages:
@@ -11,7 +11,7 @@ build:
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
           apt-get update
           apt-get install -y clang-format-7
-          which clang-format-7
+          ln -s /usr/bin/clang-format-7 /usr/bin/clang-format
     - script:
         name: setup git submodule
         code: |
