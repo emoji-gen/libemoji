@@ -113,9 +113,10 @@ EgError emoji_generate(const EgGenerateParams *params,
 }
 
 void emoji_free(EgGenerateResult *result) {
-    if (result != nullptr) {
-        delete[] reinterpret_cast<unsigned char *>(result->fData);
-        result->fData = nullptr;
-        result->fSize = 0;
-    }
+    if (result == nullptr) return;
+    if (result->fData == nullptr) return;
+
+    delete[] reinterpret_cast<unsigned char *>(result->fData);
+    result->fData = nullptr;
+    result->fSize = 0;
 }
