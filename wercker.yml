@@ -6,7 +6,7 @@ build:
     - script:
         name: debug
         code: |
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
           apt-get update
           apt-get install clang-format-7
     - script:
