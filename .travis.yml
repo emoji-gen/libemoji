@@ -1,12 +1,9 @@
 osx_image: xcode9.2
 language: objective-c
 
-before_script:
-  - brew install ninja
-
 script:
-  - cmake -G Ninja
-  - travis_wait 30 ninja
+  - cmake .
+  - make
 
 notifications:
   slack:
