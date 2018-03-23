@@ -1,11 +1,6 @@
 osx_image: xcode9.2
 language: objective-c
 
-before_script:
-  - brew install git-lfs
-  - git lfs install
-  - git lfs pull
-
 script:
   - cmake .
   - make
