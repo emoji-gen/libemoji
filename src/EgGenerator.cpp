@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstdint>
 #include <iostream>
 #include <sstream>
 #include <utility>
@@ -79,7 +80,7 @@ sk_sp<SkData> EgGenerator::generate() {
     }
 
     // テキストを描画
-    for (std::size_t i = 0; i < lines.size(); ++i) {
+    for (std::uint32_t i = 0; i < lines.size(); ++i) {
         lines[i].draw(canvas, lineHeight * i, specs[i]);
     }
 

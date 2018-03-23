@@ -33,7 +33,7 @@ public:
     }
 
     MeasureSpec measure(SkScalar textSize = SK_ScalarNaN);
-    void draw(SkCanvas *canvas, std::size_t y, const MeasureSpec &spec);
+    void draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec);
 
 private:
     std::string fText = "";
