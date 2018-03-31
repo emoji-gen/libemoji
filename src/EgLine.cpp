@@ -22,8 +22,9 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
 
         measureSpec.fTextSize = textSize;
         measureSpec.fBounds = bounds;
-        measureSpec.fTextScaleX =
-            bounds.width() > fWidth ? fWidth / bounds.width() : 1;
+        measureSpec.fTextScaleX = bounds.width() > fWidth
+                                      ? fWidth / bounds.width()
+                                      : SkIntToScalar(1);
         return measureSpec;
     }
 
