@@ -16,21 +16,25 @@ public:
     sk_sp<SkData> generate();
 
     void setText(const char *text);
-    void setWidth(uint32_t width) { fWidth = SkIntToScalar(width); }
-    void setHeight(uint32_t height) { fHeight = SkIntToScalar(height); }
-    void setTextAlign(SkPaint::Align align) { fTextAlign = align; }
-    void setTextSizeFixed(bool textSizeFixed) {
+    void setWidth(uint32_t width) noexcept { fWidth = SkIntToScalar(width); }
+    void setHeight(uint32_t height) noexcept {
+        fHeight = SkIntToScalar(height);
+    }
+    void setTextAlign(SkPaint::Align align) noexcept { fTextAlign = align; }
+    void setTextSizeFixed(bool textSizeFixed) noexcept {
         fTextSizeFixed = textSizeFixed;
     }
-    void setDisableStretch(bool disableStretch) {
+    void setDisableStretch(bool disableStretch) noexcept {
         fDisableStretch = disableStretch;
     }
     void setTypefaceFromName(const char *familyName);
     void setTypefaceFromFile(const char *path);
-    void setColor(SkColor color) { fColor = color; }
-    void setBackgroundColor(SkColor color) { fBackgroundColor = color; }
-    void setFormat(SkEncodedImageFormat format) { fFormat = format; }
-    void setQuality(int quality) { fQuality = quality; }
+    void setColor(SkColor color) noexcept { fColor = color; }
+    void setBackgroundColor(SkColor color) noexcept {
+        fBackgroundColor = color;
+    }
+    void setFormat(SkEncodedImageFormat format) noexcept { fFormat = format; }
+    void setQuality(int quality) noexcept { fQuality = quality; }
 
 private:
     std::vector<std::string> fTexts;

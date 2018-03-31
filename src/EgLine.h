@@ -23,11 +23,15 @@ public:
     EgLine();
 
     void setText(const std::string &text) { fText = text; }
-    void setWidth(SkScalar width) { fWidth = width; }
-    void setLineHeight(SkScalar lineHeight) { fLineHeight = lineHeight; }
+    void setWidth(SkScalar width) noexcept { fWidth = width; }
+    void setLineHeight(SkScalar lineHeight) noexcept {
+        fLineHeight = lineHeight;
+    }
     void setTypeface(sk_sp<SkTypeface> typeface) { fTypeface = typeface; }
-    void setTextAlign(SkPaint::Align textAlign) { fTextAlign = textAlign; }
-    void setColor(SkColor color) { fColor = color; }
+    void setTextAlign(SkPaint::Align textAlign) noexcept {
+        fTextAlign = textAlign;
+    }
+    void setColor(SkColor color) noexcept { fColor = color; }
     void setDisableStretch(bool disableStretch) {
         fDisableStretch = disableStretch;
     }
