@@ -81,7 +81,7 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     SkScalar x;
     switch (fTextAlign) {
     case SkPaint::kLeft_Align:
-        x = -spec.fBounds.fLeft;
+        x = -spec.fBounds.fLeft * spec.fTextScaleX;
         break;
     case SkPaint::kCenter_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
@@ -93,7 +93,7 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
         break;
     case SkPaint::kRight_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
-            x = -spec.fBounds.fLeft;
+            x = -spec.fBounds.fLeft * spec.fTextScaleX;
         } else {
             x = fWidth - spec.fBounds.width() - spec.fBounds.fLeft;
         }
