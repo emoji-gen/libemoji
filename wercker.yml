@@ -18,11 +18,11 @@ build:
         name: setup git submodule
         code: |
           git submodule update --init --depth 1
-    - script:
-        name: check format
-        code: |
-          clang-format -i -style=file src/*.cpp src/*.h
-          ./scripts/test/git-status.sh
+    # - script:
+    #     name: check format
+    #     code: |
+    #       clang-format -i -style=file src/*.cpp src/*.h
+    #       ./scripts/test/git-status.sh
     - script:
         name: build
         code: |
