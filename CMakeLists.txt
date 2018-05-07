@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(EXECUTABLE_OUTPUT_PATH "bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "tmp")
 include_directories(
   ${CMAKE_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/src
@@ -26,7 +26,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/externals/skia/include/gpu
 )
 link_directories(
-  ${CMAKE_SOURCE_DIR}/lib
+  ${CMAKE_SOURCE_DIR}/tmp
 )
 
 
@@ -40,6 +40,25 @@ add_dependencies(emoji skia)
 target_link_libraries(emoji skia z)
 set_property(TARGET emoji PROPERTY POSITION_INDEPENDENT_CODE ON)
 
+#~~~~~~~
+
+add_custom_target(emoji_combined
+  DEPENDS emoji
+  SOURCES lib/libemoji.a
+)
+add_custom_command(
+  OUTPUT lib/libemoji.a
+  COMMAND ${CMAKE_COMMAND} -E remove -f *.o
+  COMMAND ar -x libemoji.a
+  COMMAND ar -x libskia.a
+  COMMAND ar -qcS libemoji_combined.a *.o
+  COMMAND ranlib -c libemoji_combined.a
+  COMMAND ${CMAKE_COMMAND} -E copy
+    ${CMAKE_SOURCE_DIR}/tmp/libemoji_combined.a
+    ${CMAKE_SOURCE_DIR}/lib/libemoji.a
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/tmp
+)
+
 
 # example
 #~~~~~~~~~~
@@ -47,7 +66,7 @@ file(GLOB example_files "example/*.c")
 add_executable(example
   ${example_files}
 )
-add_dependencies(example emoji)
+add_dependencies(example emoji_combined)
 
 if(APPLE)
   target_link_libraries(example
@@ -89,16 +108,16 @@ get_filename_component(gn_path externals/depot_tools/gn ABSOLUTE)
 get_filename_component(ninja_path externals/depot_tools/ninja ABSOLUTE)
 
 add_custom_target(skia
-  SOURCES lib/libskia.a
+  SOURCES tmp/libskia.a
 )
 add_custom_command(
-  OUTPUT lib/libskia.a
+  OUTPUT tmp/libskia.a
   COMMAND python tools/git-sync-deps
   COMMAND ${gn_path} gen out/Static --args='is_debug=false　target_cpu="x64" is_official_build=true skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false skia_use_system_libwebp=false skia_use_system_icu=false'
   COMMAND ${ninja_path} -C out/Static
   COMMAND ${CMAKE_COMMAND} -E copy
     ${CMAKE_SOURCE_DIR}/externals/skia/out/Static/libskia.a
-    ${CMAKE_SOURCE_DIR}/lib/libskia.a
+    ${CMAKE_SOURCE_DIR}/tmp/libskia.a
   WORKING_DIRECTORY externals/skia
 )
 
