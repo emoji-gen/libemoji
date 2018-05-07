@@ -78,4 +78,4 @@ $ clang-format -i -style=file src/*.cpp src/*.h
 ```
 
 ## License
-MIT &copy; Emoji Generator
+MIT &copy; [Emoji Generator](https://emoji-gen.ninja)
