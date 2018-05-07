@@ -5,6 +5,7 @@ Makefile
 
 bin
 lib
+tmp
 *.o
 *.png
 *.webp
