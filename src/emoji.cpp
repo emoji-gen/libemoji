@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <string>
@@ -103,7 +104,7 @@ EgError emoji_generate(const EgGenerateParams *params,
 
     // Generate
     sk_sp<SkData> data(generator.generate());
-    unsigned char *buf = new unsigned char[data->size()];
+    std::uint8_t *buf = new std::uint8_t[data->size()];
     data->copyRange(0, data->size(), buf);
 
     result->fSize = data->size();
@@ -116,7 +117,7 @@ void emoji_free(EgGenerateResult *result) {
     if (result == nullptr) return;
     if (result->fData == nullptr) return;
 
-    delete[] reinterpret_cast<unsigned char *>(result->fData);
+    delete[] reinterpret_cast<std::uint8_t *>(result->fData);
     result->fData = nullptr;
     result->fSize = 0;
 }
