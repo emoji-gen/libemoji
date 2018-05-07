@@ -71,6 +71,9 @@ See also `example` directory.
 ### Run formatter
 
 ```
+$ clang-format --version
+clang-format version 7.0.0 (tags/google/stable/2018-01-11)
+
 $ clang-format -i -style=file src/*.cpp src/*.h
 ```
 
