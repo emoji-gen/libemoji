@@ -43,6 +43,7 @@ set_property(TARGET emoji PROPERTY POSITION_INDEPENDENT_CODE ON)
 #~~~~~~~
 
 add_custom_target(emoji_combined
+  DEPENDS emoji
   SOURCES lib/libemoji.a
 )
 add_custom_command(
