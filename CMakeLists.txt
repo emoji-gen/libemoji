@@ -48,7 +48,7 @@ add_custom_target(emoji_combined
 )
 add_custom_command(
   OUTPUT lib/libemoji.a
-  COMMAND rm -f *.o
+  COMMAND ${CMAKE_COMMAND} -E remove -f *.o
   COMMAND ar -x libemoji.a
   COMMAND ar -x libskia.a
   COMMAND ar -qcS libemoji_combined.a *.o
