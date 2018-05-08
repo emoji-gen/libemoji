@@ -51,8 +51,7 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E remove -f *.o
   COMMAND ar -x libemoji.a
   COMMAND ar -x libskia.a
-  COMMAND ar -qcS libemoji_combined.a *.o
-  COMMAND ranlib -c libemoji_combined.a
+  COMMAND ar -qcs libemoji_combined.a *.o
   COMMAND ${CMAKE_COMMAND} -E copy
     ${CMAKE_SOURCE_DIR}/tmp/libemoji_combined.a
     ${CMAKE_SOURCE_DIR}/lib/libemoji.a
