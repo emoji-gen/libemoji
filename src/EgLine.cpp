@@ -69,7 +69,7 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
     if (prevBounds.width() > fWidth) {
         paint.setTextSize(prevTextSize);
 
-        for (SkScalar i = fWidth / prevBounds.width(); i > 0; i -= SkDoubleToScalar(0.0001)) {
+        for (SkScalar i = fWidth / prevBounds.width(); i > 0; i -= SkDoubleToScalar(0.001)) {
             paint.setTextScaleX(i);
             paint.measureText(fText.c_str(), fText.length(), &bounds);
             if (bounds.width() < fWidth) {
