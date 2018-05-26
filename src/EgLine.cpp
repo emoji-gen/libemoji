@@ -70,10 +70,11 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
         paint.setTextSize(prevTextSize);
 
         for (SkScalar i = fWidth / prevBounds.width(); i > SkDoubleToScalar(0);
-             i -= SkDoubleToScalar(0.001)) {
+             i -= SkDoubleToScalar(0.0001)) {
             paint.setTextScaleX(i);
             paint.measureText(fText.c_str(), fText.length(), &bounds);
-            if (bounds.width() < fWidth) {
+            if (bounds.width() <= fWidth) {
+                measureSpec.fBounds = bounds;
                 measureSpec.fTextScaleX = i;
                 break;
             }
@@ -95,11 +96,11 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     SkScalar x;
     switch (fTextAlign) {
     case SkPaint::kLeft_Align:
-        x = -spec.fBounds.fLeft * spec.fTextScaleX;
+        x = -spec.fBounds.fLeft;
         break;
     case SkPaint::kCenter_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
-            x = -spec.fBounds.fLeft * spec.fTextScaleX;
+            x = -spec.fBounds.fLeft;
         } else {
             x = (fWidth - spec.fBounds.width()) / SkIntToScalar(2) -
                 spec.fBounds.fLeft;
@@ -107,7 +108,7 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
         break;
     case SkPaint::kRight_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
-            x = -spec.fBounds.fLeft * spec.fTextScaleX;
+            x = -spec.fBounds.fLeft;
         } else {
             x = fWidth - spec.fBounds.width() - spec.fBounds.fLeft;
         }
