@@ -63,9 +63,22 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
 
     measureSpec.fTextSize = prevTextSize;
     measureSpec.fBounds = prevBounds;
-    measureSpec.fTextScaleX = prevBounds.width() > fWidth
-                                  ? fWidth / prevBounds.width()
-                                  : SkIntToScalar(1);
+    measureSpec.fTextScaleX = SkIntToScalar(1);
+
+    // 横方向圧縮が必要な場合: 圧縮率の調整
+    if (prevBounds.width() > fWidth) {
+        paint.setTextSize(prevTextSize);
+
+        for (SkScalar i = fWidth / prevBounds.width(); i > SkDoubleToScalar(0);
+             i -= SkDoubleToScalar(0.001)) {
+            paint.setTextScaleX(i);
+            paint.measureText(fText.c_str(), fText.length(), &bounds);
+            if (bounds.width() < fWidth) {
+                measureSpec.fTextScaleX = i;
+                break;
+            }
+        }
+    }
 
     return measureSpec;
 }
