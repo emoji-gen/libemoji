@@ -6,7 +6,8 @@
 EgLine::EgLine() {}
 
 EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
-    return SkScalarIsNaN(textSize) ? measureAdjusted() : measureSizeFixed(textSize);
+    return SkScalarIsNaN(textSize) ? measureAdjusted()
+                                   : measureSizeFixed(textSize);
 }
 
 /**
