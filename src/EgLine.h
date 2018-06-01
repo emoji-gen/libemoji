@@ -5,6 +5,7 @@
 
 #include "SkCanvas.h"
 #include "SkColor.h"
+#include "SkPaint.h"
 #include "SkRect.h"
 #include "SkScalar.h"
 #include "SkTypeface.h"
@@ -47,6 +48,11 @@ private:
     sk_sp<SkTypeface> fTypeface;
     SkColor fColor;
     bool fDisableStretch;
+
+    SkPaint preparePaintForMeasure();
+    SkPaint preparePaintForDraw(SkScalar textSize);
+    MeasureSpec measureAdjusted();
+    MeasureSpec measureSizeFixed(SkScalar textSize);
 };
 
 #endif

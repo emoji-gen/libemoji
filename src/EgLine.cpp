@@ -6,27 +6,17 @@
 EgLine::EgLine() {}
 
 EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
-    SkPaint paint;
-    paint.setColor(SK_ColorBLACK);
-    paint.setAntiAlias(true);
-    if (fTypeface != nullptr) paint.setTypeface(fTypeface);
-    paint.setTextAlign(SkPaint::kLeft_Align);
+    return SkScalarIsNaN(textSize) ? measureAdjusted()
+                                   : measureSizeFixed(textSize);
+}
 
+/**
+ * テキストサイズ可変モード
+ */
+EgLine::MeasureSpec EgLine::measureAdjusted() {
+    SkPaint paint = preparePaintForMeasure();
     SkRect bounds;
-    MeasureSpec measureSpec;
-
-    // テキストサイズ固定モード: 2回目の測定処理
-    if (!SkScalarIsNaN(textSize)) {
-        paint.setTextSize(textSize);
-        paint.measureText(fText.c_str(), fText.length(), &bounds);
-
-        measureSpec.fTextSize = textSize;
-        measureSpec.fBounds = bounds;
-        measureSpec.fTextScaleX = bounds.width() > fWidth
-                                      ? fWidth / bounds.width()
-                                      : SkIntToScalar(1);
-        return measureSpec;
-    }
+    MeasureSpec spec;
 
     SkScalar minTextSize = fLineHeight * SkDoubleToScalar(0.9);
     SkScalar maxTextSize = fLineHeight * SkIntToScalar(10);
@@ -61,9 +51,9 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
         }
     }
 
-    measureSpec.fTextSize = prevTextSize;
-    measureSpec.fBounds = prevBounds;
-    measureSpec.fTextScaleX = SkIntToScalar(1);
+    spec.fTextSize = prevTextSize;
+    spec.fBounds = prevBounds;
+    spec.fTextScaleX = SkIntToScalar(1);
 
     // 横方向圧縮が必要な場合: 圧縮率の調整
     if (prevBounds.width() > fWidth) {
@@ -74,23 +64,52 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
             paint.setTextScaleX(i);
             paint.measureText(fText.c_str(), fText.length(), &bounds);
             if (bounds.width() <= fWidth) {
-                measureSpec.fBounds = bounds;
-                measureSpec.fTextScaleX = i;
+                spec.fBounds = bounds;
+                spec.fTextScaleX = i;
                 break;
             }
         }
     }
 
-    return measureSpec;
+    return spec;
+}
+
+/**
+ * テキストサイズ固定モード
+ *
+ * 一度可変モードで測定後、最も小さいフォントサイズで固定し再度計測する
+ */
+EgLine::MeasureSpec EgLine::measureSizeFixed(SkScalar textSize) {
+    SkPaint paint = preparePaintForMeasure();
+    SkRect bounds;
+    MeasureSpec spec;
+
+    paint.setTextSize(textSize);
+    paint.measureText(fText.c_str(), fText.length(), &bounds);
+
+    spec.fTextSize = textSize;
+    spec.fBounds = bounds;
+    spec.fTextScaleX = SkIntToScalar(1);
+
+    // 横方向圧縮が必要な場合: 圧縮率の調整
+    if (bounds.width() > fWidth) {
+        for (SkScalar i = fWidth / bounds.width(); i > SkDoubleToScalar(0);
+             i -= SkDoubleToScalar(0.0001)) {
+            paint.setTextScaleX(i);
+            paint.measureText(fText.c_str(), fText.length(), &bounds);
+            if (bounds.width() <= fWidth) {
+                spec.fBounds = bounds;
+                spec.fTextScaleX = i;
+                break;
+            }
+        }
+    }
+
+    return spec;
 }
 
 void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
-    SkPaint paint;
-    paint.setColor(fColor);
-    paint.setAntiAlias(true);
-    paint.setTypeface(fTypeface);
-    paint.setTextAlign(SkPaint::kLeft_Align);
-    paint.setTextSize(spec.fTextSize);
+    SkPaint paint = preparePaintForDraw(spec.fTextSize);
 
     // for X-axis
     SkScalar x;
@@ -121,4 +140,31 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     paint.setTextScaleX(spec.fTextScaleX);
     canvas->drawString(fText.c_str(), x, y - spec.fBounds.fTop + offsetY,
                        paint);
+}
+
+SkPaint EgLine::preparePaintForMeasure() {
+    SkPaint paint;
+    paint.setColor(SK_ColorBLACK);
+    paint.setAntiAlias(true);
+    paint.setTextAlign(SkPaint::kLeft_Align);
+
+    if (fTypeface != nullptr) {
+        paint.setTypeface(fTypeface);
+    }
+
+    return paint;
+}
+
+SkPaint EgLine::preparePaintForDraw(SkScalar textSize) {
+    SkPaint paint;
+    paint.setColor(fColor);
+    paint.setAntiAlias(true);
+    paint.setTextAlign(SkPaint::kLeft_Align);
+    paint.setTextSize(textSize);
+
+    if (fTypeface != nullptr) {
+        paint.setTypeface(fTypeface);
+    }
+
+    return paint;
 }
