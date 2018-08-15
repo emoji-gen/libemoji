@@ -3,7 +3,6 @@ CMakeCache.txt
 *.cmake
 Makefile
 
-bin
 lib
 tmp
 *.o
@@ -14,4 +13,6 @@ tmp
 .ninja_deps
 .ninja_log
 
+# Example
 example/*.png
+example/example
