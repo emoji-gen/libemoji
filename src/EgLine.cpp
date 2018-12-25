@@ -138,7 +138,8 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     SkScalar offsetY = (fLineHeight - spec.fBounds.height()) / SkIntToScalar(2);
 
     paint.setTextScaleX(spec.fTextScaleX);
-    SkTextUtils::DrawString(canvas, fText.c_str(), x, y - spec.fBounds.fTop + offsetY, paint);
+    SkTextUtils::DrawString(canvas, fText.c_str(), x,
+                            y - spec.fBounds.fTop + offsetY, paint);
 }
 
 SkPaint EgLine::preparePaintForMeasure() {
