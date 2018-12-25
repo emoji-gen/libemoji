@@ -8,6 +8,7 @@
 #include "SkPaint.h"
 #include "SkRect.h"
 #include "SkScalar.h"
+#include "SkTextUtils.h"
 #include "SkTypeface.h"
 
 /**
@@ -29,7 +30,7 @@ public:
         fLineHeight = lineHeight;
     }
     void setTypeface(sk_sp<SkTypeface> typeface) { fTypeface = typeface; }
-    void setTextAlign(SkPaint::Align textAlign) noexcept {
+    void setTextAlign(SkTextUtils::Align textAlign) noexcept {
         fTextAlign = textAlign;
     }
     void setColor(SkColor color) noexcept { fColor = color; }
@@ -44,7 +45,7 @@ private:
     std::string fText = "";
     SkScalar fWidth = SkIntToScalar(128);
     SkScalar fLineHeight = SkIntToScalar(128);
-    SkPaint::Align fTextAlign;
+    SkTextUtils::Align fTextAlign;
     sk_sp<SkTypeface> fTypeface;
     SkColor fColor;
     bool fDisableStretch;

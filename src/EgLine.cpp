@@ -114,10 +114,10 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     // for X-axis
     SkScalar x;
     switch (fTextAlign) {
-    case SkPaint::kLeft_Align:
+    case SkTextUtils::kLeft_Align:
         x = -spec.fBounds.fLeft;
         break;
-    case SkPaint::kCenter_Align:
+    case SkTextUtils::kCenter_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
             x = -spec.fBounds.fLeft;
         } else {
@@ -125,7 +125,7 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
                 spec.fBounds.fLeft;
         }
         break;
-    case SkPaint::kRight_Align:
+    case SkTextUtils::kRight_Align:
         if (spec.fTextScaleX < SkIntToScalar(1)) {
             x = -spec.fBounds.fLeft;
         } else {
@@ -138,15 +138,13 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     SkScalar offsetY = (fLineHeight - spec.fBounds.height()) / SkIntToScalar(2);
 
     paint.setTextScaleX(spec.fTextScaleX);
-    canvas->drawString(fText.c_str(), x, y - spec.fBounds.fTop + offsetY,
-                       paint);
+    SkTextUtils::DrawString(canvas, fText.c_str(), x, y - spec.fBounds.fTop + offsetY, paint);
 }
 
 SkPaint EgLine::preparePaintForMeasure() {
     SkPaint paint;
     paint.setColor(SK_ColorBLACK);
     paint.setAntiAlias(true);
-    paint.setTextAlign(SkPaint::kLeft_Align);
 
     if (fTypeface != nullptr) {
         paint.setTypeface(fTypeface);
@@ -159,7 +157,6 @@ SkPaint EgLine::preparePaintForDraw(SkScalar textSize) {
     SkPaint paint;
     paint.setColor(fColor);
     paint.setAntiAlias(true);
-    paint.setTextAlign(SkPaint::kLeft_Align);
     paint.setTextSize(textSize);
 
     if (fTypeface != nullptr) {

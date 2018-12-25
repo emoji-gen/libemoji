@@ -7,23 +7,24 @@
 #include "SkData.h"
 #include "SkEncodedImageFormat.h"
 #include "SkPaint.h"
+#include "SkTextUtils.h"
 
 #include "EgGenerator.h"
 #include "emoji.h"
 
 /**
- * Convert EgAlign -> SkPaint::Align
+ * Convert EgAlign -> SkTextUtils::Align
  */
-static bool convertToSkAlign(EgAlign src, SkPaint::Align &dest) {
+static bool convertToSkAlign(EgAlign src, SkTextUtils::Align &dest) {
     switch (src) {
     case kLeft_Align:
-        dest = SkPaint::kLeft_Align;
+        dest = SkTextUtils::kLeft_Align;
         return true;
     case kCenter_Align:
-        dest = SkPaint::kCenter_Align;
+        dest = SkTextUtils::kCenter_Align;
         return true;
     case kRight_Align:
-        dest = SkPaint::kRight_Align;
+        dest = SkTextUtils::kRight_Align;
         return true;
     }
     return false;
@@ -66,7 +67,7 @@ EgError emoji_generate(const EgGenerateParams *params,
     generator.setBackgroundColor(params->fBackgroundColor);
 
     // Style
-    SkPaint::Align align;
+    SkTextUtils::Align align;
     if (!convertToSkAlign(params->fTextAlign, align)) {
         return EG_INVALID_PARAMETER;
     }

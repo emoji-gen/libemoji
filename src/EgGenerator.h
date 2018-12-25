@@ -7,6 +7,7 @@
 #include "SkCanvas.h"
 #include "SkColor.h"
 #include "SkScalar.h"
+#include "SkTextUtils.h"
 #include "SkTypeface.h"
 
 class EgGenerator final {
@@ -20,7 +21,7 @@ public:
     void setHeight(uint32_t height) noexcept {
         fHeight = SkIntToScalar(height);
     }
-    void setTextAlign(SkPaint::Align align) noexcept { fTextAlign = align; }
+    void setTextAlign(SkTextUtils::Align align) noexcept { fTextAlign = align; }
     void setTextSizeFixed(bool textSizeFixed) noexcept {
         fTextSizeFixed = textSizeFixed;
     }
@@ -40,7 +41,7 @@ private:
     std::vector<std::string> fTexts;
     SkScalar fWidth = SkIntToScalar(128);
     SkScalar fHeight = SkIntToScalar(128);
-    SkPaint::Align fTextAlign = SkPaint::kCenter_Align;
+    SkTextUtils::Align fTextAlign = SkTextUtils::kCenter_Align;
     bool fTextSizeFixed = false;
     bool fDisableStretch = false;
     sk_sp<SkTypeface> fTypeface;
