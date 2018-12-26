@@ -7,8 +7,8 @@
 #include "SkCanvas.h"
 #include "SkColor.h"
 #include "SkScalar.h"
-#include "SkTextUtils.h"
 #include "SkTypeface.h"
+#include "utils/SkTextUtils.h"
 
 class EgGenerator final {
 public:
