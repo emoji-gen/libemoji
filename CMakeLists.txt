@@ -22,7 +22,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/externals/skia/include/core
   ${CMAKE_SOURCE_DIR}/externals/skia/include/config
-  ${CMAKE_SOURCE_DIR}/externals/skia/include/util
+  ${CMAKE_SOURCE_DIR}/externals/skia/include/utils
   ${CMAKE_SOURCE_DIR}/externals/skia/include/gpu
 )
 link_directories(
