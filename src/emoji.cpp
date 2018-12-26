@@ -2,7 +2,6 @@
 #include <cstring>
 #include <iostream>
 #include <string>
-#include <vector>
 
 #include "SkData.h"
 #include "SkEncodedImageFormat.h"
