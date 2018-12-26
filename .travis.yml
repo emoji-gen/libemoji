@@ -1,5 +1,7 @@
-osx_image: xcode9.2
 language: objective-c
+osx_image:
+  - xcode9.2  # Sierra
+  - xcode10.1 # High Sierra
 
 script:
   - cmake .
