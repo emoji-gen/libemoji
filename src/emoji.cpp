@@ -6,7 +6,7 @@
 #include "SkData.h"
 #include "SkEncodedImageFormat.h"
 #include "SkPaint.h"
-#include "utils/SkTextUtils.h"
+#include "SkTextUtils.h"
 
 #include "EgGenerator.h"
 #include "emoji.h"
