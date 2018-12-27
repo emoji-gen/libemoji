@@ -4,7 +4,7 @@ build:
     - script:
         name: setup git submodule
         code: |
-          git submodule update --init --depth 1
+          git submodule update --init --recursive --jobs=$(($(nproc) * 3))
     - script:
         name: check format
         code: |
