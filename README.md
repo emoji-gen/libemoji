@@ -12,7 +12,8 @@
 - C++14 Compiler
 
 ### Official supported platforms
-- macOS Sierra
+
+- macOS 10.12 Sierra, 10.13 High Sierra, and 10.14 Mojave
 - Debian 9 Stretch
 
 ### macOS
