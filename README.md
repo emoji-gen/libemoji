@@ -13,7 +13,9 @@
 
 ### Official supported platforms
 
-- macOS 10.12 Sierra, 10.13 High Sierra, and 10.14 Mojave
+- macOS 10.12 Sierra
+- macOS 10.13 High Sierra
+- macOS 10.14 Mojave
 - Debian 9 Stretch
 
 ### macOS
