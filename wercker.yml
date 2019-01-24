@@ -9,7 +9,7 @@ build:
         name: check format
         code: |
           clang-format -i -style=file src/*.cpp src/*.h
-          ./script/is-git-dirty.sh
+          ./scripts/is-git-dirty.sh
     - script:
         name: build
         code: |
