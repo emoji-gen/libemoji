@@ -43,6 +43,9 @@ $ make
 ## Example
 
 ```c
+#include <stdio.h>
+#include <string.h>
+
 #include "emoji.h"
 
 int main(void) {
