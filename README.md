@@ -82,5 +82,9 @@ clang-format version 7.0.0 (tags/google/stable/2018-04-24)
 $ clang-format -i -style=file src/*.cpp src/*.h
 ```
 
+## See also
+
+- [Google 開発の 2D グラフィックライブラリ Skia の紹介とはじめかた](https://emoji-gen.ninja/blog/posts/20190204/skia.html) (Japanese)
+
 ## License
 MIT &copy; [Emoji Generator](https://emoji-gen.ninja)
