@@ -1,4 +1,4 @@
-box: emojigen/docker-libemoji
+box: emojigen/cpp:stretch
 build:
   steps:
     - script:
