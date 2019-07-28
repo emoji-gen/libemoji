@@ -58,7 +58,6 @@ EgLine::MeasureSpec EgLine::measureAdjusted() {
     spec.fBounds = prevBounds;
     spec.fTextScaleX = SkIntToScalar(1);
 
-
     // 横方向圧縮が必要な場合: 圧縮率の調整
     if (prevBounds.width() > fWidth) {
         font.setSize(prevTextSize);
