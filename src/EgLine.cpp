@@ -15,6 +15,7 @@ EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
  */
 EgLine::MeasureSpec EgLine::measureAdjusted() {
     SkPaint paint = preparePaintForMeasure();
+    SkFont font = prepareFontForMeasure();
     SkRect bounds;
     MeasureSpec spec;
 
@@ -29,8 +30,9 @@ EgLine::MeasureSpec EgLine::measureAdjusted() {
         if (fDisableStretch) {
             for (SkScalar i = minTextSize; i > SkIntToScalar(0);
                  i -= SkDoubleToScalar(0.5)) {
-                paint.setTextSize(i);
-                paint.measureText(fText.c_str(), fText.length(), &bounds);
+                font.setSize(i);
+                font.measureText(fText.c_str(), fText.length(),
+                                 SkTextEncoding::kUTF8, &bounds, &paint);
                 if (bounds.width() < fWidth) {
                     minTextSize = i;
                     break;
@@ -40,8 +42,9 @@ EgLine::MeasureSpec EgLine::measureAdjusted() {
 
         for (SkScalar i = minTextSize; i < maxTextSize;
              i += SkDoubleToScalar(0.5)) {
-            paint.setTextSize(i);
-            paint.measureText(fText.c_str(), fText.length(), &bounds);
+            font.setSize(i);
+            font.measureText(fText.c_str(), fText.length(),
+                             SkTextEncoding::kUTF8, &bounds, &paint);
 
             if (bounds.height() > fLineHeight) break;
             if (fDisableStretch && bounds.width() > fWidth) break;
@@ -57,12 +60,13 @@ EgLine::MeasureSpec EgLine::measureAdjusted() {
 
     // 横方向圧縮が必要な場合: 圧縮率の調整
     if (prevBounds.width() > fWidth) {
-        paint.setTextSize(prevTextSize);
+        font.setSize(prevTextSize);
 
         for (SkScalar i = fWidth / prevBounds.width(); i > SkDoubleToScalar(0);
              i -= SkDoubleToScalar(0.0001)) {
-            paint.setTextScaleX(i);
-            paint.measureText(fText.c_str(), fText.length(), &bounds);
+            font.setScaleX(i);
+            font.measureText(fText.c_str(), fText.length(),
+                             SkTextEncoding::kUTF8, &bounds, &paint);
             if (bounds.width() <= fWidth) {
                 spec.fBounds = bounds;
                 spec.fTextScaleX = i;
@@ -81,11 +85,13 @@ EgLine::MeasureSpec EgLine::measureAdjusted() {
  */
 EgLine::MeasureSpec EgLine::measureSizeFixed(SkScalar textSize) {
     SkPaint paint = preparePaintForMeasure();
+    SkFont font = prepareFontForMeasure();
     SkRect bounds;
     MeasureSpec spec;
 
-    paint.setTextSize(textSize);
-    paint.measureText(fText.c_str(), fText.length(), &bounds);
+    font.setSize(textSize);
+    font.measureText(fText.c_str(), fText.length(), SkTextEncoding::kUTF8,
+                     &bounds);
 
     spec.fTextSize = textSize;
     spec.fBounds = bounds;
@@ -95,8 +101,9 @@ EgLine::MeasureSpec EgLine::measureSizeFixed(SkScalar textSize) {
     if (bounds.width() > fWidth) {
         for (SkScalar i = fWidth / bounds.width(); i > SkDoubleToScalar(0);
              i -= SkDoubleToScalar(0.0001)) {
-            paint.setTextScaleX(i);
-            paint.measureText(fText.c_str(), fText.length(), &bounds);
+            font.setScaleX(i);
+            font.measureText(fText.c_str(), fText.length(),
+                             SkTextEncoding::kUTF8, &bounds);
             if (bounds.width() <= fWidth) {
                 spec.fBounds = bounds;
                 spec.fTextScaleX = i;
@@ -109,7 +116,8 @@ EgLine::MeasureSpec EgLine::measureSizeFixed(SkScalar textSize) {
 }
 
 void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
-    SkPaint paint = preparePaintForDraw(spec.fTextSize);
+    SkPaint paint = preparePaintForDraw();
+    SkFont font = prepareFontForDraw(spec);
 
     // for X-axis
     SkScalar x;
@@ -137,9 +145,8 @@ void EgLine::draw(SkCanvas *canvas, SkScalar y, const MeasureSpec &spec) {
     // for Y-axis
     SkScalar offsetY = (fLineHeight - spec.fBounds.height()) / SkIntToScalar(2);
 
-    paint.setTextScaleX(spec.fTextScaleX);
     SkTextUtils::DrawString(canvas, fText.c_str(), x,
-                            y - spec.fBounds.fTop + offsetY, paint);
+                            y - spec.fBounds.fTop + offsetY, font, paint);
 }
 
 SkPaint EgLine::preparePaintForMeasure() {
@@ -147,22 +154,35 @@ SkPaint EgLine::preparePaintForMeasure() {
     paint.setColor(SK_ColorBLACK);
     paint.setAntiAlias(true);
 
-    if (fTypeface != nullptr) {
-        paint.setTypeface(fTypeface);
-    }
+    return paint;
+}
+
+SkPaint EgLine::preparePaintForDraw() {
+    SkPaint paint;
+    paint.setColor(fColor);
+    paint.setAntiAlias(true);
 
     return paint;
 }
 
-SkPaint EgLine::preparePaintForDraw(SkScalar textSize) {
-    SkPaint paint;
-    paint.setColor(fColor);
-    paint.setAntiAlias(true);
-    paint.setTextSize(textSize);
+SkFont EgLine::prepareFontForMeasure() {
+    SkFont font;
 
     if (fTypeface != nullptr) {
-        paint.setTypeface(fTypeface);
+        font.setTypeface(fTypeface);
     }
 
-    return paint;
+    return font;
+}
+
+SkFont EgLine::prepareFontForDraw(const MeasureSpec &spec) {
+    SkFont font;
+    font.setSize(spec.fTextSize);
+    font.setScaleX(spec.fTextScaleX);
+
+    if (fTypeface != nullptr) {
+        font.setTypeface(fTypeface);
+    }
+
+    return font;
 }

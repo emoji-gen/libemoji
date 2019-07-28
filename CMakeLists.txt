@@ -15,11 +15,12 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(EXECUTABLE_OUTPUT_PATH "example")
+set(EXECUTABLE_OUTPUT_PATH "bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  "tmp")
 include_directories(
   ${CMAKE_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_SOURCE_DIR}/externals/skia
   ${CMAKE_SOURCE_DIR}/externals/skia/include/core
   ${CMAKE_SOURCE_DIR}/externals/skia/include/config
   ${CMAKE_SOURCE_DIR}/externals/skia/include/utils

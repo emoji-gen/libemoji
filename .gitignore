@@ -6,13 +6,14 @@ Makefile
 lib
 tmp
 *.o
-*.png
-*.webp
 
+# ninja
 *.ninja
 .ninja_deps
 .ninja_log
 
-# Example
+# project
 example/*.png
-example/example
+bin/
+*.png
+*.webp

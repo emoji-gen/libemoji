@@ -5,6 +5,7 @@
 
 #include "SkCanvas.h"
 #include "SkColor.h"
+#include "SkFont.h"
 #include "SkPaint.h"
 #include "SkRect.h"
 #include "SkScalar.h"
@@ -51,7 +52,9 @@ private:
     bool fDisableStretch;
 
     SkPaint preparePaintForMeasure();
-    SkPaint preparePaintForDraw(SkScalar textSize);
+    SkPaint preparePaintForDraw();
+    SkFont prepareFontForMeasure();
+    SkFont prepareFontForDraw(const MeasureSpec &measureSpec);
     MeasureSpec measureAdjusted();
     MeasureSpec measureSizeFixed(SkScalar textSize);
 };
