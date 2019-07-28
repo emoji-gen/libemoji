@@ -80,7 +80,7 @@ See also `example` directory.
 
 ```
 $ clang-format --version
-clang-format version 7.0.0 (tags/google/stable/2018-04-24)
+clang-format version 8.0.0 (tags/google/stable/2019-01-18)
 
 $ clang-format -i -style=file src/*.cpp src/*.h
 ```
