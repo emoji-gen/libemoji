@@ -7,12 +7,12 @@ int main() {
     EgGenerateParams params;
     memset(&params, 0, sizeof(params));
 
-    params.fText = "絵文\nあいうえおかきくけこ";
+    params.fText = "絵文\n字。";
     params.fWidth = 256;
     params.fHeight = 256;
     params.fColor = 0xFF000000;
     params.fBackgroundColor = 0x00FFFFFF;
-    params.fTextAlign = kCenter_Align;
+    params.fTextAlign = kLeft_Align;
     params.fTextSizeFixed = false;
     params.fDisableStretch = false;
     params.fTypefaceFile = "./example/NotoSansMonoCJKjp-Bold.otf";
