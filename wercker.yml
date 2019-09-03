@@ -15,6 +15,7 @@ build:
         code: |
           cmake .
           make
+          du -h tmp/libskia.a
     - script:
         name: output dummy file
         code: |
