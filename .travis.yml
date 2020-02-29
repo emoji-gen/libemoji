@@ -1,7 +1,7 @@
 language: objective-c
 osx_image:
-  - xcode9.2  # Sierra
-  - xcode10.1 # High Sierra
+  - xcode11.3 # macOS 10.14 Mojave
+  # NOTICE: Unfortunately, macOS 10.15 Catalina isn't supported yet by Travis CI.
 
 script:
   - cmake .
