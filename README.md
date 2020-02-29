@@ -21,12 +21,15 @@
 - Debian 10 Buster
 
 ### macOS
+When you build this on macOS, please run the commands below before building.
 
 ```
 $ brew install cmake
 ```
 
 ### Debian 10 Buster
+When you build this on Debian 10 Buster, please run the commands below before building.
+It probably works as well on other Debian versions.
 
 ```
 $ sudo apt-get update
