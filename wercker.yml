@@ -23,5 +23,5 @@ build:
   after-steps:
     - install-packages:
         packages: ruby
-    - wantedly/pretty-slack-notify:
+    - pasonatquila/pretty-slack-notify:
         webhook_url: $SLACK_WEBHOOK_URL
