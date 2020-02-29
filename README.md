@@ -14,12 +14,11 @@
 - C11 Compiler
 - C++14 Compiler
 
-### Official supported platforms
+### Officially supported platforms
 
-- macOS 10.12 Sierra
-- macOS 10.13 High Sierra
 - macOS 10.14 Mojave
-- Debian 9 Stretch
+- macOS 10.15 Catalina
+- Debian 10 Buster
 
 ### macOS
 
@@ -27,7 +26,7 @@
 $ brew install cmake
 ```
 
-### Debian 9 Stretch
+### Debian 10 Buster
 
 ```
 $ sudo apt-get update
