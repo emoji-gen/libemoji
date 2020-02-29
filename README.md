@@ -6,6 +6,7 @@
 :tada: Ultimate Emoji Generator library using [Skia](https://skia.org/)
 
 <img src="emoji.png" width="128" height="128" alt="libemoji"><br>
+<br>
 
 ## System requirements
 
