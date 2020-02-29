@@ -15,6 +15,7 @@
 - C++14 Compiler
 
 ### Officially supported platforms
+We officially support building and running on these platforms below, but you can try it on other platforms.
 
 - macOS 10.14 Mojave
 - macOS 10.15 Catalina
