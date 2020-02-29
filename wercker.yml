@@ -1,4 +1,4 @@
-box: emojigen/cpp:stretch
+box: emojigen/cpp:buster
 build:
   steps:
     - script:
