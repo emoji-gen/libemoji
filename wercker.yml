@@ -23,5 +23,6 @@ build:
   after-steps:
     - install-packages:
         packages: ruby
-    - pasonatquila/pretty-slack-notify:
-        webhook_url: $SLACK_WEBHOOK_URL
+    - slack-notifier:
+        url: $SLACK_WEBHOOK_URL
+        notify_on: failed
