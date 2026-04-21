@@ -11,16 +11,17 @@
 ## System requirements
 
 - CMake
-- Python 2.7
+- Python 3
 - C11 Compiler
-- C++14 Compiler
+- C++20 Compiler
 
 ### Officially supported platforms
 We officially support building and running on these platforms below, but you can try it on other platforms.
 
-- macOS 10.14 Mojave
-- macOS 10.15 Catalina
+- macOS 26 Tahoe (arm64)
+<!--
 - Debian 10 Buster
+-->
 
 ### macOS
 When you build this on macOS, please run the commands below before building.
@@ -29,6 +30,7 @@ When you build this on macOS, please run the commands below before building.
 $ brew install cmake
 ```
 
+<!--
 ### Debian 10 Buster
 When you build this on Debian 10 Buster, please run the commands below before building.
 And, they probably work as well on other Debian versions.
@@ -38,6 +40,7 @@ $ sudo apt-get update
 $ sudo apt-get install git cmake g++ python libfontconfig1-dev \
     libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 ```
+-->
 
 ## How to build
 
@@ -84,7 +87,7 @@ See also `example` directory.
 
 ```
 $ clang-format --version
-clang-format version 9.0.0 (tags/google/stable/2019-05-14)
+clang-format version 21.1.8
 
 $ clang-format -i -style=file src/*.cpp src/*.h
 ```

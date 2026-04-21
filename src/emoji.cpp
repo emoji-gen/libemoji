@@ -3,10 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include "SkData.h"
-#include "SkEncodedImageFormat.h"
-#include "SkPaint.h"
-#include "SkTextUtils.h"
+#include "core/SkData.h"
+#include "core/SkPaint.h"
+#include "utils/SkTextUtils.h"
 
 #include "EgGenerator.h"
 #include "emoji.h"
@@ -24,21 +23,6 @@ static bool convertToSkAlign(EgAlign src, SkTextUtils::Align &dest) {
         return true;
     case kRight_Align:
         dest = SkTextUtils::kRight_Align;
-        return true;
-    }
-    return false;
-}
-
-/**
- * Convert EgFormat -> SkEncodedImageFormat
- */
-static bool convertToSkFormat(EgFormat src, SkEncodedImageFormat &dest) {
-    switch (src) {
-    case kPNG_Format:
-        dest = SkEncodedImageFormat::kPNG;
-        return true;
-    case kWEBP_Format:
-        dest = SkEncodedImageFormat::kWEBP;
         return true;
     }
     return false;
@@ -92,11 +76,7 @@ EgError emoji_generate(const EgGenerateParams *params,
     }
 
     // Image
-    SkEncodedImageFormat format;
-    if (!convertToSkFormat(params->fFormat, format)) {
-        return EG_INVALID_PARAMETER;
-    }
-    generator.setFormat(format);
+    generator.setFormat(params->fFormat);
     if (params->fQuality < 0 || params->fQuality > 100) {
         return EG_INVALID_PARAMETER;
     }
@@ -104,6 +84,10 @@ EgError emoji_generate(const EgGenerateParams *params,
 
     // Generate
     sk_sp<SkData> data(generator.generate());
+    if (data == nullptr) {
+        return EG_GENERATION_FAILED; // 生成失敗
+    }
+
     std::uint8_t *buf = new std::uint8_t[data->size()];
     data->copyRange(0, data->size(), buf);
 

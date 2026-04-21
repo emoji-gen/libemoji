@@ -3,14 +3,14 @@
 
 #include <string>
 
-#include "SkCanvas.h"
-#include "SkColor.h"
-#include "SkFont.h"
-#include "SkPaint.h"
-#include "SkRect.h"
-#include "SkScalar.h"
-#include "SkTextUtils.h"
-#include "SkTypeface.h"
+#include "core/SkCanvas.h"
+#include "core/SkColor.h"
+#include "core/SkFont.h"
+#include "core/SkPaint.h"
+#include "core/SkRect.h"
+#include "core/SkScalar.h"
+#include "core/SkTypeface.h"
+#include "utils/SkTextUtils.h"
 
 /**
  * 行ボックス

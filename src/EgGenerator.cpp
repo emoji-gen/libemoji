@@ -5,23 +5,43 @@
 #include <utility>
 #include <vector>
 
-#include "SkCanvas.h"
-#include "SkImage.h"
-#include "SkPaint.h"
-#include "SkSurface.h"
-#include "SkTypeface.h"
+#include "core/SkCanvas.h"
+#include "core/SkImage.h"
+#include "core/SkImageInfo.h"
+#include "core/SkPaint.h"
+#include "core/SkSurface.h"
+#include "core/SkTypeface.h"
+#include "encode/SkPngEncoder.h"
+#include "encode/SkWebpEncoder.h"
+
+// SkFontMgr
+#include "core/SkFontMgr.h"
+#ifdef EG_OS_MAC
+#include "ports/SkFontMgr_mac_ct.h"
+#endif
+#ifdef EG_OS_LINUX
+#include "ports/SkFontMgr_fontconfig.h"
+#include "ports/SkFontScanner_FreeType.h"
+#endif
 
 #include "EgGenerator.h"
 #include "EgLine.h"
 
-EgGenerator::EgGenerator() {}
+EgGenerator::EgGenerator() {
+#ifdef EG_OS_MAC
+    fFontMgr = SkFontMgr_New_CoreText(nullptr);
+#endif
+#ifdef EG_OS_LINUX
+    fFontMgr = SkFontMgr_New_FontConfig(nullptr, SkFontScanner_Make_FreeType());
+#endif
+}
 
 void EgGenerator::setTypefaceFromName(const char *familyName) {
-    fTypeface = SkTypeface::MakeFromName(familyName, SkFontStyle());
+    fTypeface = fFontMgr->matchFamilyStyle(familyName, SkFontStyle());
 }
 
 void EgGenerator::setTypefaceFromFile(const char *path) {
-    fTypeface = SkTypeface::MakeFromFile(path);
+    fTypeface = fFontMgr->makeFromFile(path);
 }
 
 void EgGenerator::setText(const char *text) {
@@ -37,7 +57,8 @@ void EgGenerator::setText(const char *text) {
 }
 
 sk_sp<SkData> EgGenerator::generate() {
-    sk_sp<SkSurface> surface = SkSurface::MakeRasterN32Premul(fWidth, fHeight);
+    SkImageInfo imageInfo = SkImageInfo::MakeN32Premul(fWidth, fHeight);
+    sk_sp<SkSurface> surface = SkSurfaces::Raster(imageInfo);
     SkCanvas *canvas = surface->getCanvas();
     canvas->clear(fBackgroundColor);
 
@@ -85,8 +106,16 @@ sk_sp<SkData> EgGenerator::generate() {
     }
 
     // エンコード
-    sk_sp<SkImage> image(surface->makeImageSnapshot());
-    sk_sp<SkData> data(image->encodeToData(fFormat, fQuality));
+    sk_sp<SkImage> snapshot(surface->makeImageSnapshot());
+    if (fFormat == kPNG_Format) {
+        SkPngEncoder::Options options;
+        return SkPngEncoder::Encode(nullptr, snapshot.get(), options);
+    } else if (fFormat == kWEBP_Format) {
+        SkWebpEncoder::Options options;
+        options.fQuality = fQuality;
+        return SkWebpEncoder::Encode(nullptr, snapshot.get(), options);
+    }
 
-    return data;
+    // 生成失敗
+    return sk_sp<SkData>(); // nullptr
 }
