@@ -108,11 +108,9 @@ sk_sp<SkData> EgGenerator::generate() {
     // エンコード
     sk_sp<SkImage> snapshot(surface->makeImageSnapshot());
     if (fFormat == kPNG_Format) {
-        SkPngEncoder::Options options;
-        return SkPngEncoder::Encode(nullptr, snapshot.get(), options);
+        return SkPngEncoder::Encode(nullptr, snapshot.get(), SkPngEncoder::Options());
     } else if (fFormat == kWEBP_Format) {
-        SkWebpEncoder::Options options;
-        options.fQuality = fQuality;
+        SkWebpEncoder::Options options { .fQuality = static_cast<float>(fQuality) };
         return SkWebpEncoder::Encode(nullptr, snapshot.get(), options);
     }
 
