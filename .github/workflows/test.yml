@@ -29,3 +29,4 @@ jobs:
           cmake .
           make
           du -h tmp/libskia.a
+          du -h lib/libemoji.a
