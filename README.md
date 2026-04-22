@@ -19,6 +19,7 @@
 We officially support building and running on these platforms below, but you can try it on other platforms.
 
 - macOS 26 Tahoe (arm64)
+- Ubuntu 24.04 (x86\_64)
 <!--
 - Debian 10 Buster
 -->

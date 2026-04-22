@@ -22,10 +22,11 @@ jobs:
         with:
           submodules: recursive
       - name: Install dependencies
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install libfontconfig1-dev \
-            libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev
+          sudo apt-get install libfontconfig1-dev libx11-dev \
+            libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev
       - name: Show CMake version
         run: cmake --version
       - name: Show Python version
