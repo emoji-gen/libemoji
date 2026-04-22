@@ -22,3 +22,8 @@ jobs:
           submodules: recursive
       - name: Show CMake version
         run: cmake --version
+      - name: Build
+        run: |
+          cmake .
+          make
+          du -h tmp/libskia.a
