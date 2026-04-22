@@ -92,6 +92,7 @@ $ clang-format -i -style=file src/*.cpp src/*.h
 ## See also
 
 - [Google 開発の 2D グラフィックライブラリ Skia の紹介とはじめかた](https://emoji-gen.ninja/blog/posts/20190204/skia.html) (Japanese)
+- [emojilib](https://github.com/emoji-gen/emojilib) &ensp;_Python wrapper for libemoji_
 
 ## License
 MIT &copy; [Emoji Generator](https://emoji-gen.ninja)
