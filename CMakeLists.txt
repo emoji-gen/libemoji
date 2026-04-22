@@ -94,27 +94,36 @@ endif()
 
 # Skia
 #~~~~~~~~
-get_filename_component(ninja_path externals/depot_tools/ninja ABSOLUTE)
+get_filename_component(ninja_bin externals/skia/third_party/ninja/ninja ABSOLUTE)
+
+set(gn_args
+  target_cpu="${CMAKE_SYSTEM_PROCESSOR}"
+  is_debug=false
+  is_official_build=true
+  skia_use_fontconfig=false
+  skia_use_system_libpng=false
+  skia_use_system_libwebp=false
+  skia_use_system_icu=false
+  skia_use_system_harfbuzz=false
+  skia_use_system_libjpeg_turbo=false
+)
+
+if(NOT APPLE)
+  list(APPEND gn_args
+    skia_use_system_freetype2=false
+  )
+endif()
 
 add_custom_target(skia
   SOURCES tmp/libskia.a
 )
 add_custom_command(
   OUTPUT tmp/libskia.a
+  COMMAND ${CMAKE_COMMAND} -E rm -f ${ninja_bin}
   COMMAND python3 tools/git-sync-deps
   COMMAND python3 bin/fetch-ninja
-  COMMAND bin/gn gen out/Static --args='
-    target_cpu="${CMAKE_SYSTEM_PROCESSOR}"
-    is_debug=false
-    is_official_build=true
-    skia_use_fontconfig=false
-    skia_use_system_libjpeg_turbo=false
-    skia_use_system_libpng=false
-    skia_use_system_libwebp=false
-    skia_use_system_icu=false
-    skia_use_system_harfbuzz=false
-    skia_use_system_freetype2=false'
-  COMMAND ${ninja_path} -C out/Static
+  COMMAND bin/gn gen out/Static --args='${gn_args}'
+  COMMAND ${ninja_bin} -C out/Static
   COMMAND ${CMAKE_COMMAND} -E copy
     ${CMAKE_SOURCE_DIR}/externals/skia/out/Static/libskia.a
     ${CMAKE_SOURCE_DIR}/tmp/libskia.a
