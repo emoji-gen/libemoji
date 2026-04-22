@@ -37,6 +37,7 @@ EgGenerator::EgGenerator() {
 }
 
 void EgGenerator::setTypefaceFromName(const char *familyName) {
+    // Note: Currently only works on macOS
     fTypeface = fFontMgr->matchFamilyStyle(familyName, SkFontStyle());
 }
 

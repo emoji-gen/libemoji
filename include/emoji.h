@@ -53,7 +53,7 @@ typedef struct {
 
     // Font
     const char* fTypefaceFile;
-    const char* fTypefaceName;
+    const char* fTypefaceName; // Note: Currently only works on macOS
 
     // Image
     EgFormat fFormat;
