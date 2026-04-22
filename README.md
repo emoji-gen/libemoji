@@ -42,7 +42,7 @@ $ sudo apt-get install git cmake g++ python3 libfontconfig1-dev \
 ```
 $ git submodule update --init
 $ cmake .
-$ make
+$ cmake --build .
 ```
 
 ## Example
