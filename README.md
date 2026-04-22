@@ -1,6 +1,5 @@
 # libemoji
-[![Build Status](https://travis-ci.org/emoji-gen/libemoji.svg?branch=master)](https://travis-ci.org/emoji-gen/libemoji)
-[![wercker status](https://app.wercker.com/status/de905f978179bb9ca837a8b14d0cdf07/s/master "wercker status")](https://app.wercker.com/project/byKey/de905f978179bb9ca837a8b14d0cdf07)
+[![test](https://github.com/emoji-gen/libemoji/actions/workflows/test.yml/badge.svg)](https://github.com/emoji-gen/libemoji/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/emoji-gen/web-redirect.svg)](https://opensource.org/licenses/MIT)
 
 :tada: Ultimate Emoji Generator library using [Skia](https://skia.org/)
