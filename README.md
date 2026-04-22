@@ -19,9 +19,6 @@ We officially support building and running on these platforms below, but you can
 
 - macOS 26 Tahoe (arm64)
 - Ubuntu 24.04 (x86\_64)
-<!--
-- Debian 10 Buster
--->
 
 ### macOS
 When you build this on macOS, please run the commands below before building.
@@ -30,17 +27,15 @@ When you build this on macOS, please run the commands below before building.
 $ brew install cmake
 ```
 
-<!--
-### Debian 10 Buster
-When you build this on Debian 10 Buster, please run the commands below before building.
+### Ubuntu 24.04
+When you build this, please run the commands below before building.
 And, they probably work as well on other Debian versions.
 
 ```
 $ sudo apt-get update
-$ sudo apt-get install git cmake g++ python libfontconfig1-dev \
+$ sudo apt-get install git cmake g++ python3 libfontconfig1-dev \
     libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 ```
--->
 
 ## How to build
 
