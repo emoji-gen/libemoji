@@ -14,6 +14,7 @@ typedef int EgError;
 
 #define EG_OK 0
 #define EG_INVALID_PARAMETER -1
+#define EG_GENERATION_FAILED -2
 
 // Align
 //~~~~~~~~~
@@ -52,7 +53,7 @@ typedef struct {
 
     // Font
     const char* fTypefaceFile;
-    const char* fTypefaceName;
+    const char* fTypefaceName; // Note: Currently only works on macOS
 
     // Image
     EgFormat fFormat;

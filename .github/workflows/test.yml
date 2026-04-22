@@ -1,0 +1,38 @@
+name: test
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+      - name: Install dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install libfontconfig1-dev libx11-dev \
+            libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev
+      - name: Show CMake version
+        run: cmake --version
+      - name: Show Python version
+        run: python --version
+      - name: Build
+        run: |
+          cmake .
+          cmake --build .
+          du -h tmp/libskia.a
+          du -h lib/libemoji.a

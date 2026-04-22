@@ -4,11 +4,14 @@
 #include <string>
 #include <vector>
 
-#include "SkCanvas.h"
-#include "SkColor.h"
-#include "SkScalar.h"
-#include "SkTextUtils.h"
-#include "SkTypeface.h"
+#include "core/SkCanvas.h"
+#include "core/SkColor.h"
+#include "core/SkFontMgr.h"
+#include "core/SkScalar.h"
+#include "core/SkTypeface.h"
+#include "utils/SkTextUtils.h"
+
+#include "emoji.h"
 
 class EgGenerator final {
 public:
@@ -34,10 +37,11 @@ public:
     void setBackgroundColor(SkColor color) noexcept {
         fBackgroundColor = color;
     }
-    void setFormat(SkEncodedImageFormat format) noexcept { fFormat = format; }
+    void setFormat(EgFormat format) noexcept { fFormat = format; }
     void setQuality(int quality) noexcept { fQuality = quality; }
 
 private:
+    sk_sp<SkFontMgr> fFontMgr;
     std::vector<std::string> fTexts;
     SkScalar fWidth = SkIntToScalar(128);
     SkScalar fHeight = SkIntToScalar(128);
@@ -47,7 +51,7 @@ private:
     sk_sp<SkTypeface> fTypeface;
     SkColor fColor = SK_ColorBLACK;
     SkColor fBackgroundColor = SK_ColorTRANSPARENT;
-    SkEncodedImageFormat fFormat = SkEncodedImageFormat::kPNG;
+    EgFormat fFormat = kPNG_Format;
     int fQuality = 100;
 };
 

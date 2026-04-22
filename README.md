@@ -1,6 +1,5 @@
 # libemoji
-[![Build Status](https://travis-ci.org/emoji-gen/libemoji.svg?branch=master)](https://travis-ci.org/emoji-gen/libemoji)
-[![wercker status](https://app.wercker.com/status/de905f978179bb9ca837a8b14d0cdf07/s/master "wercker status")](https://app.wercker.com/project/byKey/de905f978179bb9ca837a8b14d0cdf07)
+[![test](https://github.com/emoji-gen/libemoji/actions/workflows/test.yml/badge.svg)](https://github.com/emoji-gen/libemoji/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/emoji-gen/web-redirect.svg)](https://opensource.org/licenses/MIT)
 
 :tada: Ultimate Emoji Generator library using [Skia](https://skia.org/)
@@ -11,16 +10,15 @@
 ## System requirements
 
 - CMake
-- Python 2.7
+- Python 3
 - C11 Compiler
-- C++14 Compiler
+- C++20 Compiler
 
 ### Officially supported platforms
 We officially support building and running on these platforms below, but you can try it on other platforms.
 
-- macOS 10.14 Mojave
-- macOS 10.15 Catalina
-- Debian 10 Buster
+- macOS 26 Tahoe (arm64)
+- Ubuntu 24.04 (x86\_64)
 
 ### macOS
 When you build this on macOS, please run the commands below before building.
@@ -29,13 +27,13 @@ When you build this on macOS, please run the commands below before building.
 $ brew install cmake
 ```
 
-### Debian 10 Buster
-When you build this on Debian 10 Buster, please run the commands below before building.
+### Ubuntu 24.04
+When you build this, please run the commands below before building.
 And, they probably work as well on other Debian versions.
 
 ```
 $ sudo apt-get update
-$ sudo apt-get install git cmake g++ python libfontconfig1-dev \
+$ sudo apt-get install git cmake g++ python3 libfontconfig1-dev \
     libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 ```
 
@@ -44,7 +42,7 @@ $ sudo apt-get install git cmake g++ python libfontconfig1-dev \
 ```
 $ git submodule update --init
 $ cmake .
-$ make
+$ cmake --build .
 ```
 
 ## Example
@@ -61,6 +59,8 @@ int main(void) {
     params.fText = "絵文\n字。";
     params.fWidth = 256;
     params.fHeight = 256;
+    params.fColor = 0xFF000000; // ARGB
+    params.fBackgroundColor = 0xFFFFFFFF; // ARGB
 
     EgGenerateResult result;
     if (emoji_generate(&params, &result) != EG_OK) {
@@ -84,7 +84,7 @@ See also `example` directory.
 
 ```
 $ clang-format --version
-clang-format version 9.0.0 (tags/google/stable/2019-05-14)
+clang-format version 21.1.8
 
 $ clang-format -i -style=file src/*.cpp src/*.h
 ```

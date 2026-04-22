@@ -1,13 +1,15 @@
-#include "SkPaint.h"
-#include "SkRect.h"
+#include <cmath>
+
+#include "core/SkPaint.h"
+#include "core/SkRect.h"
 
 #include "EgLine.h"
 
 EgLine::EgLine() {}
 
 EgLine::MeasureSpec EgLine::measure(SkScalar textSize) {
-    return SkScalarIsNaN(textSize) ? measureAdjusted()
-                                   : measureSizeFixed(textSize);
+    return std::isnan(textSize) ? measureAdjusted()
+                                : measureSizeFixed(textSize);
 }
 
 /**

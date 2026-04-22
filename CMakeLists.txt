@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.10.0)
 project(emoji)
 
 
@@ -11,7 +11,7 @@ set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -pg")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -march=native")
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -21,15 +21,11 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/include
   ${CMAKE_SOURCE_DIR}/src
   ${CMAKE_SOURCE_DIR}/externals/skia
-  ${CMAKE_SOURCE_DIR}/externals/skia/include/core
-  ${CMAKE_SOURCE_DIR}/externals/skia/include/config
-  ${CMAKE_SOURCE_DIR}/externals/skia/include/utils
-  ${CMAKE_SOURCE_DIR}/externals/skia/include/gpu
+  ${CMAKE_SOURCE_DIR}/externals/skia/include
 )
 link_directories(
   ${CMAKE_SOURCE_DIR}/tmp
 )
-
 
 # emoji
 #~~~~~~~~
@@ -40,6 +36,12 @@ add_library(emoji STATIC
 add_dependencies(emoji skia)
 target_link_libraries(emoji skia z)
 set_property(TARGET emoji PROPERTY POSITION_INDEPENDENT_CODE ON)
+
+if(APPLE)
+  target_compile_definitions(emoji PRIVATE EG_OS_MAC)
+elseif(UNIX)
+  target_compile_definitions(emoji PRIVATE EG_OS_LINUX)
+endif()
 
 #~~~~~~~
 
@@ -81,21 +83,9 @@ else()
   find_package(Threads REQUIRED)
   find_package(OpenGL REQUIRED)
 
-  find_package(PkgConfig)
-  pkg_check_modules(FONTCONFIG REQUIRED fontconfig)
-
-  include_directories(
-    ${FONTCONFIG_INCLUDE_DIRS}
-    ${OPENGL_INCLUDE_DIR}
-  )
-  link_directories(
-    ${FONTCONFIG_LIBRARY_DIRS}
-  )
-
   target_link_libraries(example
     emoji
     ${OPENGL_LIBRARIES}
-    ${FONTCONFIG_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
     ${CMAKE_DL_LIBS}
   )
@@ -104,17 +94,36 @@ endif()
 
 # Skia
 #~~~~~~~~
-get_filename_component(gn_path externals/depot_tools/gn ABSOLUTE)
-get_filename_component(ninja_path externals/depot_tools/ninja ABSOLUTE)
+get_filename_component(ninja_bin externals/skia/third_party/ninja/ninja ABSOLUTE)
+
+set(gn_args
+  target_cpu="${CMAKE_SYSTEM_PROCESSOR}"
+  is_debug=false
+  is_official_build=true
+  skia_use_fontconfig=false
+  skia_use_system_libpng=false
+  skia_use_system_libwebp=false
+  skia_use_system_icu=false
+  skia_use_system_harfbuzz=false
+  skia_use_system_libjpeg_turbo=false
+)
+
+if(NOT APPLE)
+  list(APPEND gn_args
+    skia_use_system_freetype2=false
+  )
+endif()
 
 add_custom_target(skia
   SOURCES tmp/libskia.a
 )
 add_custom_command(
   OUTPUT tmp/libskia.a
-  COMMAND python tools/git-sync-deps
-  COMMAND ${gn_path} gen out/Static --args='is_debug=false　target_cpu="x64" is_official_build=true skia_use_system_libjpeg_turbo=false skia_use_system_libpng=false skia_use_system_libwebp=false skia_use_system_icu=false'
-  COMMAND ${ninja_path} -C out/Static
+  COMMAND ${CMAKE_COMMAND} -E rm -f ${ninja_bin}
+  COMMAND python3 tools/git-sync-deps
+  COMMAND python3 bin/fetch-ninja
+  COMMAND bin/gn gen out/Static --args='${gn_args}'
+  COMMAND ${ninja_bin} -C out/Static
   COMMAND ${CMAKE_COMMAND} -E copy
     ${CMAKE_SOURCE_DIR}/externals/skia/out/Static/libskia.a
     ${CMAKE_SOURCE_DIR}/tmp/libskia.a
