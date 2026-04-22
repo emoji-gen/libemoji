@@ -59,6 +59,8 @@ int main(void) {
     params.fText = "絵文\n字。";
     params.fWidth = 256;
     params.fHeight = 256;
+    params.fColor = 0xFF000000; // ARGB
+    params.fBackgroundColor = 0xFFFFFFFF; // ARGB
 
     EgGenerateResult result;
     if (emoji_generate(&params, &result) != EG_OK) {
