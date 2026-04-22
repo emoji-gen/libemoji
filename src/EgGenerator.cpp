@@ -20,8 +20,7 @@
 #include "ports/SkFontMgr_mac_ct.h"
 #endif
 #ifdef EG_OS_LINUX
-#include "ports/SkFontMgr_fontconfig.h"
-#include "ports/SkFontScanner_FreeType.h"
+#include "ports/SkFontMgr_empty.h"
 #endif
 
 #include "EgGenerator.h"
@@ -32,7 +31,8 @@ EgGenerator::EgGenerator() {
     fFontMgr = SkFontMgr_New_CoreText(nullptr);
 #endif
 #ifdef EG_OS_LINUX
-    fFontMgr = SkFontMgr_New_FontConfig(nullptr, SkFontScanner_Make_FreeType());
+    // TODO: Use SkFontMgr_New_FontConfig(...) instead
+    fFontMgr = SkFontMgr_New_Custom_Empty();
 #endif
 }
 
