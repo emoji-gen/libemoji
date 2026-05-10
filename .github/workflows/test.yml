@@ -34,5 +34,7 @@ jobs:
         run: |
           cmake .
           cmake --build .
-          du -h tmp/libskia.a
           du -h lib/libemoji.a
+      - name: Test
+        run: |
+          ./bin/example
