@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: |
           cmake .
-          cmake --build . --verbose
+          cmake --build .
           du -h lib/libemoji.a
       - name: Test
         run: |
