@@ -1,4 +1,4 @@
-name: test
+name: Test
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -8,14 +8,14 @@ on:
   push:
 
 jobs:
-  build:
+  test:
     strategy:
       matrix:
         os:
           - macos-latest
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }}
+    name: Test ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
         with:
