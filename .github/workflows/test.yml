@@ -15,7 +15,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
     runs-on: ${{ matrix.os }}
-    name: Test ${{ matrix.os }}
+    name: Test (${{ matrix.os }})
     steps:
       - uses: actions/checkout@v5
         with:
